@@ -55,48 +55,58 @@ export default function Home() {
           </p>
         </motion.div>
 
-        <motion.div variants={item} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <Link href={`/${locale}/checkin`} className="group">
-            <div className="h-full bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-slate-200/50">
-              <div className="h-14 w-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                <Sparkles size={28} />
-              </div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('card_consultation_title')}</h2>
-              <p className="text-slate-500 mb-6">{t('card_consultation_desc')}</p>
-              <div className="flex items-center text-blue-600 font-semibold">
-                {t('card_consultation_action')} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+        <motion.div variants={item} className="flex flex-col gap-8 mb-12 w-full">
+
+          {/* Main Action: Light Mode (Free) */}
+          <Link href={`/${locale}/consult/light`} className="group w-full">
+            <div className="relative overflow-hidden bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl hover:scale-[1.01] transition-all duration-300">
+              {/* Abstract decorative background */}
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-600/30 to-purple-600/30 blur-3xl rounded-full -mr-32 -mt-32"></div>
+
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+                <div className="space-y-4 max-w-lg">
+                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-1.5 border border-white/10">
+                    <Sparkles className="w-4 h-4 text-yellow-300 fill-yellow-300" />
+                    <span className="text-white text-sm font-bold tracking-wide">{t('mode_light_badge')}</span>
+                  </div>
+                  <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
+                    {t('mode_light_desc')}
+                  </h2>
+                  <p className="text-slate-300 text-lg">
+                    {t('card_consultation_desc')}
+                  </p>
+                </div>
+
+                <div className="flex-shrink-0">
+                  <div className="h-16 w-16 md:h-20 md:w-20 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-white/10">
+                    <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-slate-900" strokeWidth={2.5} />
+                  </div>
+                </div>
               </div>
             </div>
           </Link>
 
-          <div className="grid grid-rows-2 gap-6">
-            <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-slate-200/50 flex items-center gap-4">
-              <div className="h-12 w-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600">
-                <Activity size={24} />
+          {/* Secondary Action: Full Mode (Premium) */}
+          <Link href={`/${locale}/consult/full/intro`} className="group w-full">
+            <div className="bg-white/60 backdrop-blur-md border border-slate-200/60 rounded-[2rem] p-8 hover:bg-white/80 transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left group-hover:shadow-lg">
+              <div className="flex items-center gap-6">
+                <div className="h-14 w-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                  <Activity size={28} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2 justify-center md:justify-start">
+                    {t('mode_full_title')}
+                    <span className="bg-purple-100 text-purple-700 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full">Premium</span>
+                  </h3>
+                  <p className="text-slate-500 text-sm mt-1">{t('mode_full_desc')}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-slate-900">{t('feature_analysis_title')}</h3>
-                <p className="text-sm text-slate-500">{t('feature_analysis_desc')}</p>
+              <div className="flex items-center text-purple-600 font-semibold text-sm bg-purple-50 px-6 py-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all">
+                {t('start_button')} <ArrowRight className="ml-2 h-4 w-4" />
               </div>
             </div>
-            <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-slate-200/50 flex items-center gap-4">
-              <div className="h-12 w-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
-                <FileText size={24} />
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">{t('feature_reports_title')}</h3>
-                <p className="text-sm text-slate-500">{t('feature_reports_desc')}</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div variants={item} className="text-center">
-          <Link href={`/${locale}/checkin`}>
-            <Button size="lg" className="h-14 px-8 text-lg rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all bg-gradient-to-r from-slate-900 to-slate-800 border-none">
-              {t('start_button')} <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
           </Link>
+
         </motion.div>
       </motion.main>
     </div>

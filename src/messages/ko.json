@@ -17,10 +17,19 @@
         "card_consultation_title": "새로운 상담 시작",
         "card_consultation_desc": "AI 설문조사로 피부 분석을 시작해보세요.",
         "card_consultation_action": "지금 시작하기",
-        "feature_analysis_title": "실시간 분석",
-        "feature_analysis_desc": "즉각적인 시술 추천",
         "feature_reports_title": "상세 리포트",
-        "feature_reports_desc": "종합 분석 결과 제공"
+        "feature_reports_desc": "종합 분석 결과 제공",
+        "mode_selection_title": "상담 모드 선택",
+        "mode_selection_subtitle": "원하시는 상담 방식을 선택해주세요.",
+        "mode_light_title": "Light Mode",
+        "mode_light_badge": "간편 상담",
+        "mode_light_desc": "30초 만에 끝나는 AI 피부 분석",
+        "mode_full_title": "Full Mode",
+        "mode_full_badge": "정밀 상담",
+        "mode_full_desc": "의료진과 함께하는 심층 분석",
+        "mode_pro_title": "Pro Mode",
+        "mode_pro_badge": "병원 전용",
+        "mode_pro_desc": "원내 키오스크 및 전문가용"
     },
     "Questions": {
         "q1_concerns": {
@@ -201,5 +210,16 @@
             "cta_desc": "3가지 추가 추천 시술과 상세 분석을 확인하세요.",
             "cta_button": "심층 상담 예약 (Full)"
         }
+    },
+    "FullModeIntro": {
+        "title": "프리미엄 정밀 상담",
+        "subtitle": "피부과 전문의와 함께하는 심층 분석 솔루션",
+        "benefit_1": "AI + 전문의 이중 체크",
+        "benefit_2": "10페이지 분량의 상세 리포트",
+        "benefit_3": "맞춤 시술 및 홈케어 가이드",
+        "price_label": "상담비",
+        "price_value": "30,000원",
+        "cta_button": "예약 및 결제하기",
+        "processing_payment": "결제 처리 중..."
     }
 }
