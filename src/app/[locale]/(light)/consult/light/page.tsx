@@ -79,7 +79,7 @@ export default function LightConsultationPage() {
         q_pigment_type: data.concerns.includes('pigmentation') ? 'spot' : undefined,
     });
 
-    const recommendations = step === 'result' ? getRecommendations(getLogicInputs()) : [];
+    const recommendations = step === 'result' ? getRecommendations(data.concerns, data.skinType) : [];
     const topRec = recommendations[0];
 
     // Localized Treatment Display
