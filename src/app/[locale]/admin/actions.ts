@@ -1,8 +1,23 @@
 'use server';
 
 import { db } from '@/db';
-import { leads, bookings, users } from '@/db/schema';
+import { surveys, leads, bookings, users } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
+
+export async function getSurveys() {
+    try {
+        const recentSurveys = await db.select().from(surveys).orderBy(desc(surveys.createdAt)).limit(50);
+        return recentSurveys.map(s => ({
+            ...s,
+            concerns: JSON.parse(s.concerns as string) as string[],
+            answers: s.answers ? JSON.parse(s.answers as string) : {},
+            images: s.images ? JSON.parse(s.images as string) as string[] : []
+        }));
+    } catch (error) {
+        console.error('Failed to fetch surveys:', error);
+        return [];
+    }
+}
 
 export async function getAdminData() {
     try {

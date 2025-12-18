@@ -34,75 +34,102 @@ export default function Home() {
       <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
 
       <motion.main
-        className="z-10 w-full max-w-4xl"
+        className="w-full max-w-5xl z-10"
         variants={container}
         initial="hidden"
         animate="show"
       >
         <motion.div variants={item} className="text-center mb-16 space-y-6">
-          <div className="inline-flex items-center justify-center p-2 bg-white/50 backdrop-blur-sm rounded-full shadow-sm mb-4 border border-slate-200">
-            <span className="bg-slate-900 text-white text-xs font-bold px-3 py-1 rounded-full mr-2">{t('new_badge')}</span>
-            <span className="text-slate-600 text-sm pr-2">{t('ai_evaluation')}</span>
+          <div className="inline-block p-1 rounded-full bg-gradient-to-r from-slate-200/50 to-white/50 backdrop-blur-md border border-white/50 mb-4">
+            <span className="px-6 py-2 rounded-full bg-white/80 text-xs font-bold tracking-[0.2em] text-slate-900 uppercase">
+              Premium Dermatology
+            </span>
           </div>
-
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight">
-            {t('hero_title_1')} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">{t('hero_title_2')}</span>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-tight">
+            <span className="block text-gradient-navy">Seoul Skin</span>
+            <span className="block text-4xl md:text-5xl font-light text-slate-600 mt-2">Analysis System</span>
           </h1>
-
-          <p className="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
-            {t('welcome')}
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
+            {t('hero_description')}
           </p>
         </motion.div>
 
-        <motion.div variants={item} className="flex flex-col gap-8 mb-12 w-full">
+        <motion.div variants={item} className="grid grid-cols-1 gap-8 mb-12 w-full px-4 md:px-0">
 
-          {/* Main Action: Light Mode (Free) */}
-          <Link href={`/${locale}/consult/light`} className="group w-full">
-            <div className="relative overflow-hidden bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl hover:scale-[1.01] transition-all duration-300">
-              {/* Abstract decorative background */}
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-600/30 to-purple-600/30 blur-3xl rounded-full -mr-32 -mt-32"></div>
+          {/* Main Action: Light Mode (Free) - Dark Premium Card */}
+          <Link href={`/${locale}/consult/light`} className="group w-full block">
+            <div className="relative overflow-hidden bg-[#0f172a] rounded-[2rem] p-8 md:p-12 shadow-2xl transition-all duration-500 hover:shadow-blue-900/20 hover:-translate-y-1 border border-white/10 group-hover:border-blue-500/30">
 
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-                <div className="space-y-4 max-w-lg">
-                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-1.5 border border-white/10">
-                    <Sparkles className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-                    <span className="text-white text-sm font-bold tracking-wide">{t('mode_light_badge')}</span>
+              {/* Card Background Effects */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#0f172a] to-blue-950 opacity-100 dark:opacity-100"></div>
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-blue-600/20 to-purple-600/20 blur-[80px] rounded-full translate-x-1/3 -translate-y-1/3 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 text-center md:text-left">
+                <div className="space-y-6 max-w-xl">
+                  <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md rounded-full pl-2 pr-4 py-1.5 border border-white/10">
+                    <div className="bg-gradient-to-r from-amber-300 to-yellow-500 rounded-full p-1.5">
+                      <Sparkles className="w-3 h-3 text-white" fill="currentColor" />
+                    </div>
+                    <span className="text-slate-200 text-xs font-bold tracking-wider uppercase">{t('mode_light_badge')}</span>
                   </div>
-                  <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
-                    {t('mode_light_desc')}
-                  </h2>
-                  <p className="text-slate-300 text-lg">
+
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+                      {t('mode_light_desc')}
+                    </h2>
+                    <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-transparent rounded-full mx-auto md:mx-0"></div>
+                  </div>
+
+                  <p className="text-slate-400 text-lg font-light leading-relaxed">
                     {t('card_consultation_desc')}
                   </p>
+
+                  <div className="pt-2">
+                    <span className="text-blue-400 text-sm font-semibold flex items-center justify-center md:justify-start gap-2 group-hover:gap-3 transition-all duration-300">
+                      Start Analysis <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex-shrink-0">
-                  <div className="h-16 w-16 md:h-20 md:w-20 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-white/10">
-                    <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-slate-900" strokeWidth={2.5} />
+                <div className="flex-shrink-0 relative">
+                  <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full"></div>
+                  <div className="relative h-24 w-24 md:h-32 md:w-32 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center border border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-500">
+                    <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-blue-400" strokeWidth={1} />
                   </div>
                 </div>
               </div>
             </div>
           </Link>
 
-          {/* Secondary Action: Full Mode (Premium) */}
-          <Link href={`/${locale}/consult/full/intro`} className="group w-full">
-            <div className="bg-white/60 backdrop-blur-md border border-slate-200/60 rounded-[2rem] p-8 hover:bg-white/80 transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left group-hover:shadow-lg">
-              <div className="flex items-center gap-6">
-                <div className="h-14 w-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                  <Activity size={28} />
+          {/* Secondary Action: Full Mode (Premium) - Glass Light Card */}
+          <Link href={`/${locale}/consult/full/intro`} className="group w-full block">
+            <div className="glass-panel rounded-[2rem] p-8 hover:bg-white/80 transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left group-hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border-white/60">
+              <div className="flex items-center gap-8 flex-col md:flex-row">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-purple-500/10 blur-xl rounded-full"></div>
+                  <div className="relative h-16 w-16 md:h-20 md:w-20 bg-gradient-to-br from-purple-50 to-white rounded-2xl flex items-center justify-center border border-purple-100 text-purple-600 shadow-lg group-hover:scale-105 transition-transform duration-300 hover:text-purple-700">
+                    <Activity size={32} strokeWidth={1.5} />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2 justify-center md:justify-start">
-                    {t('mode_full_title')}
-                    <span className="bg-purple-100 text-purple-700 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full">Premium</span>
-                  </h3>
-                  <p className="text-slate-500 text-sm mt-1">{t('mode_full_desc')}</p>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
+                      {t('mode_full_title')}
+                    </h3>
+                    <span className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full shadow-md shadow-purple-200">
+                      Premium
+                    </span>
+                  </div>
+                  <p className="text-slate-500 font-light">{t('mode_full_desc')}</p>
                 </div>
               </div>
-              <div className="flex items-center text-purple-600 font-semibold text-sm bg-purple-50 px-6 py-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all">
-                {t('start_button')} <ArrowRight className="ml-2 h-4 w-4" />
+
+              <div className="flex items-center text-slate-400 group-hover:text-purple-600 font-medium text-sm transition-colors duration-300">
+                <span className="mr-2 uppercase tracking-wider text-xs font-bold">Details</span>
+                <div className="w-10 h-10 rounded-full border border-slate-200 group-hover:border-purple-200 flex items-center justify-center group-hover:bg-purple-50 transition-all">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
               </div>
             </div>
           </Link>

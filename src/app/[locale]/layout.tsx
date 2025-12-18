@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { AppModeProvider } from '@/context/AppModeContext';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -33,7 +33,6 @@ export default async function RootLayout({
       <body className={cn(notoSansKr.className, "antialiased min-h-screen bg-slate-50")} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <AppModeProvider>
-            <LanguageSwitcher />
             {children}
           </AppModeProvider>
         </NextIntlClientProvider>

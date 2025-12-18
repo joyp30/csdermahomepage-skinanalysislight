@@ -148,7 +148,9 @@ function ResultsContent() {
                                 >
                                     <CardHeader>
                                         <div className="text-sm font-medium text-blue-600 mb-2 uppercase tracking-wide flex justify-between">
-                                            <span>{treatment.category}</span>
+                                            <span>
+                                                {treatment.category === 'Program' ? '🌟 Premium Package' : treatment.category}
+                                            </span>
                                             {index === 0 && <span className="text-amber-500 font-bold">★ Best Match</span>}
                                         </div>
                                         <CardTitle className="text-2xl">{treatment.name}</CardTitle>

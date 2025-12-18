@@ -37,7 +37,10 @@ export default function SurveyWizard() {
         let nextStep = currentStep + 1;
         while (nextStep < SURVEY_QUESTIONS.length) {
             const q = SURVEY_QUESTIONS[nextStep];
-            if (!q.condition || q.condition(answers)) {
+            const Mode = mode as 'light' | 'full' | 'pro';
+            const isModeMatch = !q.modes || q.modes.includes(Mode);
+
+            if (isModeMatch && (!q.condition || q.condition(answers))) {
                 break;
             }
             nextStep++;
@@ -54,7 +57,10 @@ export default function SurveyWizard() {
         let prevStep = currentStep - 1;
         while (prevStep >= 0) {
             const q = SURVEY_QUESTIONS[prevStep];
-            if (!q.condition || q.condition(answers)) {
+            const Mode = mode as 'light' | 'full' | 'pro';
+            const isModeMatch = !q.modes || q.modes.includes(Mode);
+
+            if (isModeMatch && (!q.condition || q.condition(answers))) {
                 break;
             }
             prevStep--;

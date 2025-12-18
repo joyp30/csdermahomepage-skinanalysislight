@@ -3,7 +3,7 @@
 import { db } from '@/db';
 import { surveys, bookings } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { getRecommendations } from '@/lib/data/treatments';
+import { getRecommendations } from '@/lib/logic/recommendation';
 
 export async function createBooking(data: {
     patientId: number;
@@ -36,7 +36,7 @@ export async function getSurveyResult(id: number) {
 
         const concerns = JSON.parse(result.concerns as string) as string[];
         const answers = result.answers ? JSON.parse(result.answers as string) : {};
-        const skinType = result.skinType as string;
+        // Use new detailed logic engine
         const recommendations = getRecommendations(answers);
         const images = result.images ? JSON.parse(result.images as string) as string[] : [];
 

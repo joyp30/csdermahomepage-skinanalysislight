@@ -83,7 +83,12 @@ export default function LightConsultationPage() {
     const topRec = recommendations[0];
 
     // Localized Treatment Display
-    const getTreatmentName = (rec: any) => locale === 'ko' ? rec.name : rec.nameEn;
+    const getTreatmentName = (rec: any) => {
+        if (rec.machineNames && rec.machineNames.length > 0) {
+            return rec.machineNames.join(' + ');
+        }
+        return locale === 'ko' ? rec.name : rec.nameEn;
+    };
     const getTreatmentDesc = (rec: any) => locale === 'ko' ? rec.description : (rec.descriptionEn || rec.description);
 
     return (

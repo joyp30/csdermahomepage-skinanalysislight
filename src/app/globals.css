@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Premium Palette: Navy & Gold */
     --background: 210 40% 98%;
     --foreground: 222 47% 11%;
 
@@ -13,11 +14,13 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 221 83% 53%;
+    /* Deep Navy */
+    --primary: 222 47% 11%; 
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11.2%;
+    /* Soft Gold / Beige for Accents */
+    --secondary: 48 100% 96%;
+    --secondary-foreground: 38 92% 50%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -30,9 +33,13 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    --ring: 222 47% 11%;
 
     --radius: 1rem;
+    
+    /* Custom Gold Colors */
+    --gold-500: #d4af37;
+    --gold-100: #f9f1d0;
   }
 
   .dark {
@@ -84,78 +91,20 @@
 */
 
 .bg-premium-mesh {
-  background-color: #020617;
-  /* slate-950 */
-  background-image:
-    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
-}
-
-.bg-premium-light {
   background-color: #f8fafc;
   background-image:
     radial-gradient(at 0% 0%, hsla(210, 40%, 98%, 1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(220, 50%, 95%, 1) 0, transparent 50%);
+    radial-gradient(at 100% 0%, hsla(48, 100%, 96%, 0.5) 0, transparent 50%), /* Gold hint */
+    radial-gradient(at 100% 100%, hsla(222, 47%, 95%, 1) 0, transparent 50%);
 }
 
 /* Glass Panels */
 .glass-panel {
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
-  /* blur-xl */
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  /* shadow-xl */
-}
-
-.glass-panel-dark {
-  background-color: rgba(15, 23, 42, 0.6);
-  /* slate-900/60 */
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  /* shadow-2xl */
-}
-
-/* Glass Buttons */
-.btn-glass {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  /* blur-md */
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  transition: all 0.3s ease-out;
-}
-
-.btn-glass:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.btn-glass:active {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.btn-glass-primary {
-  background-color: rgba(37, 99, 235, 0.9);
-  /* blue-600/90 */
-  color: white;
-  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  transition: transform 0.2s;
-}
-
-.btn-glass-primary:hover {
-  background-color: rgba(59, 130, 246, 0.9);
-  /* blue-500/90 */
-}
-
-.btn-glass-primary:active {
-  transform: scale(0.95);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
 
 /* Text Gradients */
@@ -163,40 +112,27 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, #fde68a, #facc15, #f59e0b);
+  background-image: linear-gradient(to right, #b48811, #d4af37, #facc15);
 }
 
-.text-gradient-primary {
+.text-gradient-navy {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, #2563eb, #4f46e5);
-}
-
-.dark .text-gradient-primary {
-  background-image: linear-gradient(to right, #60a5fa, #818cf8);
+  background-image: linear-gradient(to right, #0f172a, #1e293b, #334155);
 }
 
 /* Animations */
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Hide Scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
