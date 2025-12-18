@@ -196,11 +196,11 @@ export default function LightConsultationPage() {
                                         <div className="grid grid-cols-1 gap-3">
                                             <button onClick={() => setData({ ...data, pigment_visual: 'melasma' })} className={cn("p-4 border rounded-xl text-left hover:bg-slate-50", data.pigment_visual === 'melasma' && "ring-2 ring-indigo-500 bg-indigo-50")}>
                                                 <span className="font-bold block">🌫️ 기미 / 칙칙함</span>
-                                                <span className="text-xs text-slate-500">경계가 불분명하고 안개처럼 퍼져 있음</span>
+                                                <span className="text-xs text-slate-500">뿌연 안개처럼 넓게 퍼져 있고 경계가 흐릿함</span>
                                             </button>
                                             <button onClick={() => setData({ ...data, pigment_visual: 'freckle' })} className={cn("p-4 border rounded-xl text-left hover:bg-slate-50", data.pigment_visual === 'freckle' && "ring-2 ring-indigo-500 bg-indigo-50")}>
                                                 <span className="font-bold block">🍪 주근깨 / 잡티</span>
-                                                <span className="text-xs text-slate-500">깨알처럼 경계가 뚜렷하고 진함</span>
+                                                <span className="text-xs text-slate-500">깨알 같은 점들이 흩뿌려져 있고 경계가 뚜렷함</span>
                                             </button>
                                             <button onClick={() => setData({ ...data, pigment_visual: 'pih' })} className={cn("p-4 border rounded-xl text-left hover:bg-slate-50", data.pigment_visual === 'pih' && "ring-2 ring-indigo-500 bg-indigo-50")}>
                                                 <span className="font-bold block">🔴 여드름 자국</span>
@@ -214,13 +214,13 @@ export default function LightConsultationPage() {
                                             <Label className="text-sm font-bold text-slate-700">Q. 회복 기간(다운타임) 허용 범위</Label>
                                             <div className="flex flex-col gap-2">
                                                 <button onClick={() => setData({ ...data, pigment_downtime: 'strict' })} className={cn("p-3 border rounded-lg text-sm text-left", data.pigment_downtime === 'strict' && "bg-slate-900 text-white")}>
-                                                    🩹 2주간 재생 테이프 부착 가능 (확실한 제거)
+                                                    🩹 2주간 듀오덤(테이프) 부착 가능 (확실한 제거)
                                                 </button>
                                                 <button onClick={() => setData({ ...data, pigment_downtime: 'social' })} className={cn("p-3 border rounded-lg text-sm text-left", data.pigment_downtime === 'social' && "bg-slate-900 text-white")}>
-                                                    🍂 딱지/테이프 없음 (거친 피부결 5일 감수)
+                                                    🍂 테이프 없음 (5~7일간 사포 같은 거친 질감 감수)
                                                 </button>
                                                 <button onClick={() => setData({ ...data, pigment_downtime: 'immediate' })} className={cn("p-3 border rounded-lg text-sm text-left", data.pigment_downtime === 'immediate' && "bg-slate-900 text-white")}>
-                                                    ✨ 티가 나면 안 됨 (즉시 일상생활 복귀)
+                                                    ✨ 티가 전혀 나면 안 됨 (즉시 일상생활 복귀)
                                                 </button>
                                             </div>
                                         </div>
@@ -232,10 +232,10 @@ export default function LightConsultationPage() {
                             {activeModule === 'acne' && (
                                 <>
                                     <div className="space-y-4">
-                                        <Label className="text-sm font-bold text-slate-700">Q. 3일 이내 야외 활동(골프, 여행) 계획이 있나요?</Label>
+                                        <Label className="text-sm font-bold text-slate-700">Q. 골프, 등산, 여행 등 야외 활동이 많거나 자외선 차단이 어렵습니까?</Label>
                                         <div className="grid grid-cols-2 gap-3">
                                             <button onClick={() => setData({ ...data, acne_uv_risk: true })} className={cn("p-4 border rounded-xl text-center", data.acne_uv_risk === true && "bg-slate-900 text-white")}>
-                                                <Sun className="mx-auto mb-2" /> 네, 있습니다
+                                                <Sun className="mx-auto mb-2" /> 네, 많습니다
                                             </button>
                                             <button onClick={() => setData({ ...data, acne_uv_risk: false })} className={cn("p-4 border rounded-xl text-center", data.acne_uv_risk === false && "bg-slate-900 text-white")}>
                                                 <Shield className="mx-auto mb-2" /> 아니오 (실내 생활)
@@ -244,13 +244,13 @@ export default function LightConsultationPage() {
                                     </div>
                                     {data.acne_uv_risk === false && (
                                         <div className="space-y-4 pt-4 border-t">
-                                            <Label className="text-sm font-bold text-slate-700">Q. 선호하는 가치는?</Label>
+                                            <Label className="text-sm font-bold text-slate-700">Q. 선호하는 치료 방향은?</Label>
                                             <div className="flex gap-2">
                                                 <button onClick={() => setData({ ...data, acne_value: 'economy' })} className={cn("flex-1 p-3 border rounded-lg text-sm", data.acne_value === 'economy' && "bg-slate-900 text-white")}>
-                                                    💰 가성비 우선
+                                                    💰 가성비 (자외선 차단 필수)
                                                 </button>
                                                 <button onClick={() => setData({ ...data, acne_value: 'convenience' })} className={cn("flex-1 p-3 border rounded-lg text-sm", data.acne_value === 'convenience' && "bg-slate-900 text-white")}>
-                                                    ⚡ 편의성 우선
+                                                    ⚡ 편의성 (자외선 영향 적음)
                                                 </button>
                                             </div>
                                         </div>
