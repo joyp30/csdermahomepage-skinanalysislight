@@ -1,4 +1,5 @@
-import { TREATMENTS, Treatment } from '../data/treatments';
+import { TREATMENTS } from '../data/treatments';
+import type { Treatment } from '../data/treatments';
 
 export interface LightAnswers {
     concerns: string[]; // e.g., ['pigmentation', 'acne']

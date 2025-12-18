@@ -140,7 +140,22 @@
         "next_step_selected": "선택하신 시술로 진행하시겠습니까?",
         "next_step_default": "원하시는 시술을 선택하거나 심층 상담을 요청하세요.",
         "proceed_button": "선택한 시술로 예약",
-        "consult_doctor_button": "원장님 정밀 상담 요청"
+        "consult_doctor_button": "원장님 정밀 상담 요청",
+        "premium_package": "프리미엄 패키지",
+        "best_match": "추천 시술 1순위",
+        "booking_title": "아름다운 변화의 시작",
+        "booking_desc": "지금 바로 맞춤 시술을 예약하세요.",
+        "book_button": "예약하기",
+        "confirmed_title": "예약이 확정되었습니다",
+        "confirmed_desc_pre": "",
+        "confirmed_desc_post": "에 뵙겠습니다.",
+        "cat_Pigmentation": "색소/미백 클리닉",
+        "cat_Redness": "홍조/붉은기 클리닉",
+        "cat_Acne": "여드름 클리닉",
+        "cat_Lifting": "리프팅/탄력 클리닉",
+        "cat_Scars": "흉터/모공 클리닉",
+        "cat_Skin Care": "스킨케어/관리",
+        "cat_Program": "프리미엄 패키지"
     },
     "Admin": {
         "dashboard_title": "대시보드",

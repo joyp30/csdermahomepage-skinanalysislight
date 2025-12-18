@@ -93,122 +93,143 @@ export default function SurveyWizard() {
     };
 
     return (
-        <div className="w-full max-w-2xl">
-            <div className="mb-8">
-                <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-                    <div
-                        className="h-full bg-blue-600 transition-all duration-300"
-                        style={{ width: `${((currentStep + 1) / SURVEY_QUESTIONS.length) * 100}%` }}
+        <div className="w-full max-w-3xl mx-auto px-4">
+            {/* Progress Bar */}
+            <div className="mb-12">
+                <div className="h-1.5 w-full bg-[#E5E5E5] rounded-full overflow-hidden">
+                    <motion.div
+                        className="h-full bg-[#BFA181]"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${((currentStep + 1) / SURVEY_QUESTIONS.length) * 100}%` }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
                     />
                 </div>
-                <p className="text-right text-sm text-slate-500 mt-2">
-                    {t('step_progress', { current: currentStep + 1, total: SURVEY_QUESTIONS.length })}
-                </p>
+                <div className="flex justify-between mt-3 text-xs font-medium tracking-widest text-[#999] uppercase">
+                    <span>Question {currentStep + 1}</span>
+                    <span>{SURVEY_QUESTIONS.length} Total</span>
+                </div>
             </div>
 
-            <Card className="border-2 border-slate-100 shadow-lg">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold text-center py-4 text-slate-900">
-                        {t_questions(`${currentQuestion.id}.title`)}
-                    </CardTitle>
-                    {currentQuestion.subtitle && (
-                        <p className="text-center text-slate-500 font-normal text-lg">
-                            {t_questions.has(`${currentQuestion.id}.subtitle`) ? t_questions(`${currentQuestion.id}.subtitle`) : ''}
-                        </p>
-                    )}
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="mb-6">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentQuestion.id}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                                className="grid gap-3"
-                            >
-                                {currentQuestion.options.map((option) => {
-                                    const checked = Array.isArray(answers[currentQuestion.id])
-                                        ? answers[currentQuestion.id].includes(option.value)
-                                        : answers[currentQuestion.id] === option.value;
-
-                                    return (
-                                        <motion.div
-                                            key={option.value}
-                                            whileHover={{ scale: 1.01 }}
-                                            whileTap={{ scale: 0.99 }}
-                                        >
-                                            <div
-                                                onClick={() => {
-                                                    let newValue;
-                                                    if (currentQuestion.type === 'multiple') {
-                                                        const current = answers[currentQuestion.id] || [];
-                                                        const currentArray = Array.isArray(current) ? current : [];
-
-                                                        if (currentArray.includes(option.value)) {
-                                                            newValue = currentArray.filter((v: string) => v !== option.value);
-                                                        } else {
-                                                            newValue = [...currentArray, option.value];
-                                                        }
-                                                    } else {
-                                                        newValue = option.value;
-                                                    }
-                                                    handleOptionSelect(currentQuestion.id, newValue);
-                                                }}
-                                                className={cn(
-                                                    "flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200",
-                                                    checked
-                                                        ? "border-blue-500 bg-blue-50 shadow-sm"
-                                                        : "border-slate-100 hover:border-blue-200 hover:bg-slate-50"
-                                                )}
-                                            >
-                                                <Checkbox
-                                                    checked={checked}
-                                                    className="mr-3 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 pointer-events-none"
-                                                />
-                                                <span className={cn("font-medium", checked ? "text-blue-700" : "text-slate-700")}>
-                                                    {t_questions(`${currentQuestion.id}.options.${option.id}`)}
-                                                </span>
-                                            </div>
-                                        </motion.div>
-                                    );
-                                })}
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                </CardContent>
-
-                <CardFooter className="flex justify-between pt-6 border-t border-slate-50 bg-slate-50/50">
-                    <Button
-                        variant="ghost"
-                        onClick={handlePrev}
-                        disabled={currentStep === 0}
-                        className="text-slate-500 hover:text-slate-800 hover:bg-slate-100"
-                    >
-                        {t('prev_button')}
-                    </Button>
-                    <Button
-                        size="lg"
-                        onClick={handleNext}
-                        className="min-w-[140px] text-lg h-12 bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-200"
-                        disabled={!answers[currentQuestion.id] || isSubmitting}
-                    >
-                        {isSubmitting ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                {t('submitting')}
-                            </>
-                        ) : (
-                            isLastStep ? (
-                                <span className="flex items-center gap-2">{t('complete_button')} <ArrowRight size={18} /></span>
-                            ) : (
-                                t('next_button')
-                            )
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={currentQuestion.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 p-8 md:p-12 border border-white/50"
+                >
+                    <div className="text-center mb-10">
+                        <h2 className="text-3xl md:text-4xl font-serif font-medium text-[#1C1C1C] mb-4 leading-tight">
+                            {t_questions(`${currentQuestion.id}.title`)}
+                        </h2>
+                        {currentQuestion.subtitle && (
+                            <p className="text-[#666] font-light text-lg">
+                                {t_questions.has(`${currentQuestion.id}.subtitle`) ? t_questions(`${currentQuestion.id}.subtitle`) : ''}
+                            </p>
                         )}
-                    </Button>
-                </CardFooter>
-            </Card>
+                    </div>
+
+                    <div className="space-y-4 mb-12">
+                        {currentQuestion.options.map((option) => {
+                            const isSelected = Array.isArray(answers[currentQuestion.id])
+                                ? answers[currentQuestion.id].includes(option.value)
+                                : answers[currentQuestion.id] === option.value;
+
+                            return (
+                                <ChoiceCard
+                                    key={option.value}
+                                    selected={isSelected}
+                                    label={t_questions(`${currentQuestion.id}.options.${option.id}`)}
+                                    onClick={() => {
+                                        let newValue;
+                                        if (currentQuestion.type === 'multiple') {
+                                            const current = answers[currentQuestion.id] || [];
+                                            const currentArray = Array.isArray(current) ? current : [];
+
+                                            if (currentArray.includes(option.value)) {
+                                                newValue = currentArray.filter((v: string) => v !== option.value);
+                                            } else {
+                                                newValue = [...currentArray, option.value];
+                                            }
+                                        } else {
+                                            newValue = option.value;
+                                            // Optional: Auto-advance for single choice? maybe not for better UX control
+                                        }
+                                        handleOptionSelect(currentQuestion.id, newValue);
+                                    }}
+                                />
+                            );
+                        })}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                        <Button
+                            variant="ghost"
+                            onClick={handlePrev}
+                            disabled={currentStep === 0}
+                            className="text-[#999] hover:text-[#1C1C1C] hover:bg-transparent font-medium tracking-wide uppercase"
+                        >
+                            {t('prev_button')}
+                        </Button>
+
+                        <Button
+                            size="lg"
+                            onClick={handleNext}
+                            disabled={!answers[currentQuestion.id] || isSubmitting}
+                            className="bg-[#1C1C1C] text-white hover:bg-[#333] h-14 px-8 rounded-xl text-lg tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                        >
+                            {isSubmitting ? (
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                            ) : (
+                                <span className="flex items-center gap-2">
+                                    {isLastStep ? t('complete_button') : t('next_button')}
+                                    {!isSubmitting && <ArrowRight size={18} />}
+                                </span>
+                            )}
+                        </Button>
+                    </div>
+                </motion.div>
+            </AnimatePresence>
         </div>
     );
 }
+
+// Helper for rendering choice cards
+const ChoiceCard = ({
+    selected,
+    onClick,
+    label,
+    className
+}: {
+    selected: boolean;
+    onClick: () => void;
+    label: string;
+    className?: string;
+}) => (
+    <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={onClick}
+        className={cn(
+            "relative w-full p-6 rounded-xl text-left transition-all duration-300 border cursor-pointer flex items-center gap-4 group",
+            selected
+                ? "border-[#BFA181] bg-[#FDFBF7] shadow-lg ring-1 ring-[#BFA181]"
+                : "border-slate-100 bg-white hover:border-[#BFA181]/50 hover:shadow-md",
+            className
+        )}
+    >
+        <div className={cn(
+            "w-6 h-6 rounded-full border flex items-center justify-center transition-colors",
+            selected ? "border-[#BFA181] bg-[#BFA181] text-white" : "border-slate-300 group-hover:border-[#BFA181]"
+        )}>
+            {selected && <div className="w-2.5 h-2.5 bg-white rounded-full" />}
+        </div>
+        <span className={cn(
+            "font-medium text-lg transition-colors",
+            selected ? "text-[#1C1C1C]" : "text-slate-600 group-hover:text-[#1C1C1C]"
+        )}>
+            {label}
+        </span>
+    </motion.div>
+);

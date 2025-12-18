@@ -50,35 +50,51 @@ const ChoiceCard = ({
     onClick,
     children,
     className,
-    icon
+    icon,
+    imageUrl
 }: {
     selected: boolean;
     onClick: () => void;
     children: React.ReactNode;
     className?: string;
     icon?: React.ReactNode;
+    imageUrl?: string;
 }) => (
     <motion.button
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
         onClick={onClick}
         className={cn(
-            "relative w-full p-5 rounded-2xl text-left transition-all duration-300 border-2 overflow-hidden group",
+            "relative w-full rounded-2xl text-left transition-all duration-300 border overflow-hidden group hover:shadow-xl hover:shadow-indigo-100/50 hover:-translate-y-1",
             selected
-                ? "border-indigo-500 bg-indigo-50/50 shadow-indigo-100 shadow-lg"
-                : "border-transparent bg-white/60 hover:bg-white/90 hover:shadow-lg hover:border-indigo-100 shadow-sm backdrop-blur-sm",
+                ? "border-indigo-500/50 bg-indigo-50/80 shadow-indigo-100 shadow-lg"
+                : "border-slate-100 bg-white/80 hover:bg-white/95 shadow-sm backdrop-blur-sm",
             className
         )}
     >
         {selected && (
             <motion.div
                 layoutId="check"
-                className="absolute top-3 right-3 w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center text-white"
+                className="absolute top-4 right-4 z-20 w-6 h-6 bg-slate-900 rounded-full flex items-center justify-center text-white shadow-md"
             >
                 <Check size={14} strokeWidth={3} />
             </motion.div>
         )}
-        <div className="relative z-10 flex items-center gap-4">
+
+        {/* Image Section */}
+        {imageUrl && (
+            <div className="w-full aspect-[4/3] relative overflow-hidden bg-slate-100">
+                <div className="absolute inset-0 bg-slate-200 animate-pulse" /> {/* Placeholder */}
+                <img
+                    src={imageUrl}
+                    alt="Visual Reference"
+                    className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className={cn("absolute inset-0 z-10 transition-colors duration-300", selected ? "bg-indigo-500/10" : "bg-transparent")} />
+            </div>
+        )}
+
+        <div className={cn("relative z-10 flex items-center gap-4", imageUrl ? "p-5" : "p-5")}>
             {icon && <div className="text-2xl opacity-90">{icon}</div>}
             <div className="flex-1">
                 {children}
@@ -182,11 +198,11 @@ export default function LightConsultationPage() {
                         <div className="w-20 h-20 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl flex items-center justify-center mb-8 shadow-2xl">
                             <Sparkles className="w-10 h-10 text-indigo-300" />
                         </div>
-                        <h1 className="text-6xl font-black mb-6 leading-tight tracking-tight">
+                        <h1 className="text-6xl font-black mb-6 leading-tight tracking-tight font-serif">
                             Premium <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">AI Analysis</span>
                         </h1>
-                        <p className="text-xl text-indigo-100/80 max-w-md leading-relaxed font-light">{t('subtitle')}</p>
+                        <p className="text-xl text-indigo-100/80 max-w-md leading-relaxed font-light font-serif italic">{t('subtitle')}</p>
 
                         <div className="mt-12 flex items-center gap-4 text-sm text-indigo-300/60 font-medium uppercase tracking-widest">
                             <div className="h-px w-8 bg-indigo-300/30" />
@@ -197,8 +213,9 @@ export default function LightConsultationPage() {
             </div>
 
             {/* RIGHT PANEL: Interaction Area */}
-            <div className="w-full lg:w-7/12 relative flex flex-col">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-50/50 via-white to-white z-0" />
+            <div className="w-full lg:w-7/12 relative flex flex-col bg-slate-50">
+                <div className="absolute inset-0 bg-noise opacity-40 z-0 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-50/40 via-transparent to-transparent z-0" />
 
                 <div className="flex-1 overflow-y-auto relative z-10 p-6 md:p-12 lg:p-20 flex items-center justify-center">
                     <div className="w-full max-w-xl">
@@ -217,9 +234,9 @@ export default function LightConsultationPage() {
                                     exit={{ opacity: 0, y: -20 }}
                                     className="space-y-8"
                                 >
-                                    <div className="space-y-2">
-                                        <span className="text-indigo-600 font-bold uppercase tracking-wider text-sm">Welcome</span>
-                                        <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">{t('title')}</h1>
+                                    <div className="space-y-4 text-center lg:text-left">
+                                        <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs font-sans">Welcome to Seoul Skin</span>
+                                        <h1 className="text-4xl lg:text-6xl font-medium text-slate-900 tracking-tight font-serif">{t('title')}</h1>
                                     </div>
 
                                     <div className="space-y-5 bg-white/50 backdrop-blur-lg p-8 rounded-3xl border border-white/60 shadow-xl">
@@ -263,9 +280,9 @@ export default function LightConsultationPage() {
                                     className="space-y-10"
                                 >
                                     <div className="space-y-6">
-                                        <h2 className="text-2xl font-bold flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">1</span>
-                                            {t('concerns.label')} <span className="text-sm font-normal text-slate-400 ml-auto">최대 2개 선택</span>
+                                        <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
+                                            <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">1</span>
+                                            {t('concerns.label')} <span className="text-sm font-normal text-slate-400 ml-auto font-sans tracking-wide">Select up to 2</span>
                                         </h2>
                                         <div className="grid grid-cols-2 gap-4">
                                             {CONCERN_ITEMS.map((c) => (
@@ -288,8 +305,8 @@ export default function LightConsultationPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h2 className="text-2xl font-bold flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">2</span>
+                                        <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
+                                            <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">2</span>
                                             {t('skinType.label')}
                                         </h2>
                                         <div className="flex flex-wrap gap-3">
@@ -298,10 +315,10 @@ export default function LightConsultationPage() {
                                                     key={type.id}
                                                     onClick={() => setData({ ...data, skinType: type.id })}
                                                     className={cn(
-                                                        "px-5 py-3 rounded-xl font-medium transition-all text-sm lg:text-base border hover:scale-105",
+                                                        "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
                                                         data.skinType === type.id
-                                                            ? "bg-slate-900 text-white border-slate-900 shadow-lg"
-                                                            : "bg-white border-slate-200 text-slate-600 hover:border-indigo-200 hover:bg-slate-50"
+                                                            ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
+                                                            : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
                                                     )}
                                                 >
                                                     <span className="mr-2">{type.emoji}</span> {t(`skinType.${type.id}`)}
@@ -311,8 +328,8 @@ export default function LightConsultationPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h2 className="text-2xl font-bold flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">3</span>
+                                        <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
+                                            <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">3</span>
                                             {t('budget.label')}
                                         </h2>
                                         <div className="flex flex-wrap gap-3">
@@ -321,10 +338,10 @@ export default function LightConsultationPage() {
                                                     key={b.id}
                                                     onClick={() => setData({ ...data, budget: b.id })}
                                                     className={cn(
-                                                        "px-5 py-3 rounded-xl font-medium transition-all text-sm lg:text-base border hover:scale-105",
+                                                        "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
                                                         data.budget === b.id
-                                                            ? "bg-slate-900 text-white border-slate-900 shadow-lg"
-                                                            : "bg-white border-slate-200 text-slate-600 hover:border-indigo-200 hover:bg-slate-50"
+                                                            ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
+                                                            : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
                                                     )}
                                                 >
                                                     <span className="mr-2">{b.emoji}</span> {t(`budget.${b.id}`)}
@@ -355,30 +372,53 @@ export default function LightConsultationPage() {
                                     className="space-y-8"
                                 >
                                     <div className="text-center mb-8">
-                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100">
+                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100 font-sans">
                                             <Sparkles size={12} /> AI Deep Analysis
                                         </span>
-                                        <h2 className="text-3xl font-black text-slate-900 mb-2">상세 정밀 진단</h2>
-                                        <p className="text-slate-500">더 정확한 진단을 위해 추가 정보를 입력해주세요.</p>
+                                        <h2 className="text-3xl font-medium text-slate-900 mb-2 font-serif lg:text-4xl">상세 정밀 진단</h2>
+                                        <p className="text-slate-500 font-sans font-light">더 정확한 진단을 위해 추가 정보를 입력해주세요.</p>
                                     </div>
 
                                     {/* MODULE I: Pigmentation */}
                                     {activeModule === 'pigmentation' && (
                                         <div className="space-y-8">
                                             <div className="space-y-4">
-                                                <Label className="text-lg font-bold text-slate-900">Q. 가장 고민되는 형태는 무엇인가요?</Label>
-                                                <div className="grid grid-cols-1 gap-4">
-                                                    <ChoiceCard selected={data.pigment_visual === 'melasma'} onClick={() => setData({ ...data, pigment_visual: 'melasma' })}>
-                                                        <span className="font-bold text-lg block mb-1">🌫️ 기미 / 칙칙함</span>
-                                                        <span className="text-sm text-slate-500">뿌연 안개처럼 넓게 퍼져 있고 경계가 흐릿함</span>
+                                                <Label className="text-lg font-medium text-slate-900 font-serif">Q. 거울을 보셨을 때 가장 비슷한 증상은?</Label>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <ChoiceCard
+                                                        selected={data.pigment_visual === 'melasma'}
+                                                        onClick={() => setData({ ...data, pigment_visual: 'melasma' })}
+                                                        imageUrl="/images/consult/melasma.png"
+                                                    >
+                                                        <span className="font-bold text-base block mb-1">기미 (Melasma)</span>
+                                                        <span className="text-xs text-slate-500 leading-tight block">뿌연 안개처럼 넓게 퍼진 갈색 반점</span>
                                                     </ChoiceCard>
-                                                    <ChoiceCard selected={data.pigment_visual === 'freckle'} onClick={() => setData({ ...data, pigment_visual: 'freckle' })}>
-                                                        <span className="font-bold text-lg block mb-1">🍪 주근깨 / 잡티</span>
-                                                        <span className="text-sm text-slate-500">깨알 같은 점들이 흩뿌려져 있고 경계가 뚜렷함</span>
+
+                                                    <ChoiceCard
+                                                        selected={data.pigment_visual === 'freckle'}
+                                                        onClick={() => setData({ ...data, pigment_visual: 'freckle' })}
+                                                        imageUrl="/images/consult/freckles.png"
+                                                    >
+                                                        <span className="font-bold text-base block mb-1">주근깨/잡티 (Lentigines)</span>
+                                                        <span className="text-xs text-slate-500 leading-tight block">깨알처럼 경계가 뚜렷한 진한 점</span>
                                                     </ChoiceCard>
-                                                    <ChoiceCard selected={data.pigment_visual === 'pih'} onClick={() => setData({ ...data, pigment_visual: 'pih' })}>
-                                                        <span className="font-bold text-lg block mb-1">🔴 여드름 자국</span>
-                                                        <span className="text-sm text-slate-500">염증 후 남은 붉거나 거뭇한 자국</span>
+
+                                                    <ChoiceCard
+                                                        selected={data.pigment_visual === 'pih'}
+                                                        onClick={() => setData({ ...data, pigment_visual: 'pih' })}
+                                                        imageUrl="/images/consult/pih.png"
+                                                    >
+                                                        <span className="font-bold text-base block mb-1">여드름 자국 (PIH)</span>
+                                                        <span className="text-xs text-slate-500 leading-tight block">염증 후 남은 붉거나 거뭇한 자국</span>
+                                                    </ChoiceCard>
+
+                                                    <ChoiceCard
+                                                        selected={data.pigment_visual === 'dullness'}
+                                                        onClick={() => setData({ ...data, pigment_visual: 'dullness' })}
+                                                        imageUrl="/images/consult/dullness.png"
+                                                    >
+                                                        <span className="font-bold text-base block mb-1">칙칙함 (Dullness)</span>
+                                                        <span className="text-xs text-slate-500 leading-tight block">전체적으로 어둡고 고르지 못한 톤</span>
                                                     </ChoiceCard>
                                                 </div>
                                             </div>
@@ -406,7 +446,7 @@ export default function LightConsultationPage() {
                                     {activeModule === 'acne' && (
                                         <div className="space-y-8">
                                             <div className="space-y-4">
-                                                <Label className="text-lg font-bold text-slate-900">Q. 골프, 등산, 여행 등 야외 활동이 많으신가요?</Label>
+                                                <Label className="text-lg font-medium text-slate-900 font-serif">Q. 골프, 등산, 여행 등 야외 활동이 많으신가요?</Label>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <ChoiceCard selected={data.acne_uv_risk === true} onClick={() => setData({ ...data, acne_uv_risk: true })} className="text-center block">
                                                         <Sun className="w-8 h-8 mx-auto mb-3 text-amber-500" />
@@ -446,7 +486,7 @@ export default function LightConsultationPage() {
                                     {/* MODULE III: Lifting */}
                                     {activeModule === 'lifting' && (
                                         <div className="space-y-4">
-                                            <Label className="text-lg font-bold text-slate-900">Q. 가장 고민되는 노화 증상은?</Label>
+                                            <Label className="text-lg font-medium text-slate-900 font-serif">Q. 가장 고민되는 노화 증상은?</Label>
                                             <div className="flex flex-col gap-3">
                                                 <ChoiceCard selected={data.lifting_type === 'sagging'} onClick={() => setData({ ...data, lifting_type: 'sagging' })}>
                                                     <span className="font-bold block text-lg mb-1">🔽 턱선 무너짐 / 심부볼 처짐</span>
@@ -499,8 +539,8 @@ export default function LightConsultationPage() {
                                             className="absolute -inset-4 rounded-full border border-indigo-100 border-dashed"
                                         />
                                     </div>
-                                    <h2 className="text-3xl font-black text-slate-900 mb-4">{t('analyzing.title')}</h2>
-                                    <p className="text-slate-500 text-lg">{t('analyzing.subtitle')}</p>
+                                    <h2 className="text-3xl font-medium text-slate-900 mb-4 font-serif lg:text-4xl">{t('analyzing.title')}</h2>
+                                    <p className="text-slate-500 text-lg font-sans font-light">{t('analyzing.subtitle')}</p>
                                 </motion.div>
                             )}
 
@@ -522,8 +562,8 @@ export default function LightConsultationPage() {
                                         >
                                             <Check size={40} strokeWidth={4} />
                                         </motion.div>
-                                        <h2 className="text-4xl font-black text-slate-900">Analysis Complete</h2>
-                                        <p className="text-slate-500 text-base px-4 font-medium leading-relaxed break-keep">{result.script}</p>
+                                        <h2 className="text-4xl font-black text-slate-900 font-serif">Analysis Complete</h2>
+                                        <p className="text-slate-500 text-base px-4 font-medium leading-relaxed break-keep font-sans">{result.script}</p>
                                     </div>
 
                                     {/* Main Recommendation Card */}
@@ -539,8 +579,8 @@ export default function LightConsultationPage() {
                                             <span className="bg-slate-900 text-white text-xs uppercase font-bold px-4 py-2 rounded-full inline-block tracking-wide shadow-lg mb-6 ring-2 ring-white/50">
                                                 Best Solution
                                             </span>
-                                            <h3 className="text-3xl font-black text-slate-900 mb-3 leading-tight">{getTreatmentName(result.main)}</h3>
-                                            <p className="text-slate-500 mb-8 leading-relaxed text-lg">{getTreatmentDesc(result.main)}</p>
+                                            <h3 className="text-3xl font-black text-slate-900 mb-3 leading-tight font-serif">{getTreatmentName(result.main)}</h3>
+                                            <p className="text-slate-500 mb-8 leading-relaxed text-lg font-sans font-light">{getTreatmentDesc(result.main)}</p>
 
                                             <div className="flex items-end justify-between border-t border-slate-100 pt-6">
                                                 <div>

@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import QuickMenu from '@/components/QuickMenu';
 
 export default async function LightModeLayout({
     children,
@@ -11,7 +12,7 @@ export default async function LightModeLayout({
     const { locale } = await params;
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 relative">
             {/* Simple Mobile Header */}
             <header className="bg-white border-b border-slate-100 h-14 flex items-center px-4 sticky top-0 z-50">
                 <Link href={`/${locale}`} className="mr-4">
@@ -22,6 +23,7 @@ export default async function LightModeLayout({
             <main className="max-w-md mx-auto">
                 {children}
             </main>
+            <QuickMenu />
         </div>
     );
 }
