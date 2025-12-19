@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, MessageCircle, MapPin, Calendar, FileText, Users, Menu, X, Monitor, BookOpen, Instagram, AtSign } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Calendar, FileText, Users, Menu, X, Monitor, BookOpen, Instagram, AtSign, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,6 +21,14 @@ export default function QuickMenu() {
 
     // Hardcoded items to match csderma.kr live site, pointing to main site
     const menuItems: MenuItem[] = [
+        {
+            icon: <Home className="h-5 w-5" />,
+            title: "홈페이지",
+            description: "서울피부과 메인",
+            href: 'https://csderma.kr',
+            external: true,
+            color: 'bg-slate-100 text-slate-600'
+        },
         {
             icon: <Phone className="h-5 w-5" />,
             title: "전화 상담",
