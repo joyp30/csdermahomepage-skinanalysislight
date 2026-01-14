@@ -1,0 +1,107 @@
+{
+    "Index": {
+        "title": "欢迎来到反重力诊所",
+        "consultation_button": "开始咨询",
+        "staff_button": "员工登录"
+    },
+    "CheckIn": {
+        "title": "欢迎",
+        "description": "请输入您的详细信息以开始。",
+        "name_label": "姓名",
+        "name_placeholder": "例如：张伟",
+        "phone_label": "电话号码",
+        "phone_placeholder": "例如：010-1234-5678",
+        "submit_button": "开始",
+        "loading": "登记中..."
+    },
+    "Survey": {
+        "step_progress": "步骤 {current} / {total}",
+        "next_button": "下一个问题",
+        "complete_button": "完成问卷",
+        "submitting": "提交中..."
+    },
+    "Results": {
+        "analyzing_title": "正在分析您的皮肤档案...",
+        "analyzing_desc": "正在根据您的问卷匹配最佳治疗方案。",
+        "analysis_not_found": "未找到分析结果",
+        "not_found_desc": "我们无法检索您的咨询结果。",
+        "retake_button": "重新填写问卷",
+        "complete_badge": "分析完成",
+        "title": "您的个性化治疗方案",
+        "subtitle": "根据您的困扰 ({concerns})，我们推荐以下方案：",
+        "photos_title": "皮肤分析照片",
+        "price_label": "价格",
+        "downtime_label": "恢复期",
+        "select_button": "选择治疗",
+        "proceed_button": "继续所选方案"
+    },
+    "Admin": {
+        "dashboard_title": "仪表板",
+        "overview": "今日诊所活动概览。",
+        "total_consultations": "总咨询数",
+        "total_records": "总记录",
+        "recent_activity": "近期活动",
+        "system_status": "系统状态",
+        "recent_consultations": "近期咨询",
+        "table": {
+            "patient": "患者姓名",
+            "time": "时间",
+            "concerns": "困扰",
+            "status": "状态",
+            "action": "操作",
+            "view": "查看",
+            "no_data": "未找到咨询记录。"
+        }
+    },
+    "LightMode": {
+        "title": "简易登记",
+        "subtitle": "30秒内完成的专属AI皮肤分析",
+        "name_label": "姓名",
+        "name_placeholder": "例：王小明",
+        "phone_label": "电话号码",
+        "phone_placeholder": "例：010-0000-0000",
+        "start_button": "开始分析",
+        "concerns": {
+            "label": "皮肤困扰 (最多选3项)",
+            "pigmentation": "色斑 / 色素沉着",
+            "acne": "痤疮 / 痘痘",
+            "pores": "毛孔粗大",
+            "wrinkles": "皱纹 / 老化",
+            "sagging": "下垂 / 提升",
+            "redness": "泛红 / 敏感"
+        },
+        "skinType": {
+            "label": "肤质",
+            "dry": "干性",
+            "dry_desc": "皮肤紧绷、易起皮",
+            "oily": "油性",
+            "oily_desc": "全脸出油多，泛油光",
+            "combination": "混合性",
+            "combination_desc": "T区油腻，脸颊干燥",
+            "sensitive": "敏感性",
+            "sensitive_desc": "易受刺激，泛红",
+            "normal": "中性",
+            "normal_desc": "油水平衡，无明显问题"
+        },
+        "budget": {
+            "label": "预算范围",
+            "placeholder": "请选择您的预算",
+            "economy": "实惠型 (20万韩元以下)",
+            "standard": "标准型 (20~40万韩元)",
+            "premium": "高端型 (40万韩元以上)"
+        },
+        "analyze_button": "分析结果",
+        "analyzing": {
+            "title": "正在分析...",
+            "subtitle": "正在为您匹配40多种治疗方案。"
+        },
+        "result": {
+            "title": "分析完成！",
+            "subtitle": "根据您的档案，我们为您找到了最佳治疗方案。",
+            "best_match": "最佳匹配",
+            "cta_title": "需要详细报告？",
+            "cta_desc": "解锁更多3项推荐及详细分析。",
+            "cta_button": "预约深度咨询"
+        }
+    }
+}

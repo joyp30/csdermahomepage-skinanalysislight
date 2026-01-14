@@ -1,0 +1,241 @@
+{
+    "Brand": {
+        "name": "서울피부과",
+        "app_name": "스마트 컨설트",
+        "guest_mode": "게스트 모드"
+    },
+    "Index": {
+        "title": "안티그래비티 클리닉에 오신 것을 환영합니다",
+        "welcome": "AI 기반 피부 분석 시스템으로 피부과의 미래를 경험하세요.",
+        "start_button": "상담 시작하기",
+        "consultation_button": "상담 시작하기",
+        "staff_button": "직원 로그인",
+        "new_badge": "NEW",
+        "ai_evaluation": "AI 기반 정밀 분석",
+        "hero_title_1": "프리미엄 피부",
+        "hero_title_2": "정밀 진단",
+        "hero_description": "AI 기반 피부 분석 시스템으로 피부과 전문의 수준의 정밀 진단을 경험해보세요.",
+        "card_consultation_title": "새로운 상담 시작",
+        "card_consultation_desc": "AI 설문조사로 피부 분석을 시작해보세요.",
+        "card_consultation_action": "지금 시작하기",
+        "feature_reports_title": "상세 리포트",
+        "feature_reports_desc": "종합 분석 결과 제공",
+        "mode_selection_title": "상담 모드 선택",
+        "mode_selection_subtitle": "원하시는 상담 방식을 선택해주세요.",
+        "mode_light_title": "Light Mode",
+        "mode_light_badge": "간편 상담",
+        "mode_light_desc": "30초 만에 끝나는 AI 피부 분석",
+        "mode_full_title": "Full Mode",
+        "mode_full_badge": "정밀 상담",
+        "mode_full_desc": "의료진과 함께하는 심층 분석",
+        "mode_pro_title": "Pro Mode",
+        "mode_pro_badge": "병원 전용",
+        "mode_pro_desc": "원내 키오스크 및 전문가용"
+    },
+    "Questions": {
+        "q1_concerns": {
+            "title": "가장 큰 피부 고민은 무엇인가요?",
+            "subtitle": "해당하는 항목을 모두 선택해주세요.",
+            "options": {
+                "pigmentation": "기미 / 잡티 / 불규칙한 색소",
+                "acne": "여드름 / 뾰루지 / 트러블",
+                "pores": "늘어난 모공 / 피지 분비",
+                "wrinkles": "잔주름 / 깊은 주름",
+                "sagging": "피부 처짐 / 윤곽 무너짐",
+                "fat": "이중턱 / 심부볼 등 불필요한 지방",
+                "redness": "안면홍조 / 붉은기 / 예민함",
+                "scars": "여드름 흉터 / 패인 자국",
+                "dryness": "속건조 / 각질 / 당김"
+            }
+        },
+        "q2_skin_type": {
+            "title": "피부 타입이 어떠신가요?",
+            "options": {
+                "oily": "지성 (번들거림 심함)",
+                "dry": "건성 (당김, 각질)",
+                "combination": "복합성 (T존 지성, U존 건성)",
+                "sensitive": "민감성 (자극에 약함)",
+                "normal": "중성 (큰 문제 없음)"
+            }
+        },
+        "q3_history": {
+            "title": "최근 6개월 내에 피부 시술을 받은 적이 있나요?",
+            "options": {
+                "yes": "예",
+                "no": "아니오"
+            }
+        },
+        "q_pigment_type": {
+            "title": "색소의 형태가 어떤가요?",
+            "options": {
+                "mist": "안개처럼 넓게 퍼짐 (기미)",
+                "spot": "경계가 뚜렷한 점 (주근깨/잡티)",
+                "pih": "여드름 후 검은 자국 (색소침착)",
+                "dull": "전반적인 피부 톤 칙칙함"
+            }
+        },
+        "q_redness_type": {
+            "title": "붉은기가 언제 가장 심한가요?",
+            "options": {
+                "acne_red": "여드름과 함께 붉음",
+                "flush": "열감/감정 변화 시 홍조",
+                "veins": "실핏줄이 보임"
+            }
+        },
+        "q_acne_state": {
+            "title": "현재 여드름 상태는 어떤가요?",
+            "options": {
+                "comedonal": "좁쌀 여드름 (오돌토돌)",
+                "inflammatory": "화농성 여드름 (붉고 아픔)",
+                "scars_pores": "흉터와 모공 위주"
+            }
+        },
+        "q_budget": {
+            "title": "1회 시술 희망 예산은?",
+            "options": {
+                "economy": "20만원 미만",
+                "standard": "20만원 ~ 40만원",
+                "premium": "40만원 이상"
+            }
+        },
+        "q_downtime": {
+            "title": "감수 가능한 다운타임(회복기간)은?",
+            "options": {
+                "none": "없음 (즉시 일상생활)",
+                "weekend": "주말 정도 (2-3일 붉은기)",
+                "week": "1주일 (딱지/각질 가능)"
+            }
+        }
+    },
+    "CheckIn": {
+        "title": "환영합니다",
+        "description": "상담을 시작하기 위해 정보를 입력해 주세요.",
+        "name_label": "성함",
+        "name_placeholder": "예: 김지우",
+        "phone_label": "전화번호",
+        "phone_placeholder": "예: 010-1234-5678",
+        "submit_button": "상담 시작",
+        "loading": "확인 중..."
+    },
+    "Survey": {
+        "step_progress": "단계 {current} / {total}",
+        "next_button": "다음 질문",
+        "prev_button": "이전",
+        "complete_button": "설문 완료",
+        "submitting": "제출 중..."
+    },
+    "Results": {
+        "analyzing_title": "피부 프로필 분석 중...",
+        "analyzing_desc": "설문을 바탕으로 최적의 시술을 매칭하고 있습니다.",
+        "analysis_not_found": "분석 결과 없음",
+        "not_found_desc": "상담 결과를 찾을 수 없습니다.",
+        "retake_button": "다시 분석하기",
+        "complete_badge": "분석 완료",
+        "title": "고객님을 위한 맞춤 시술 플랜",
+        "subtitle": "선택하신 고민({concerns})을 바탕으로 다음 시술을 추천합니다:",
+        "photos_title": "AI 피부 분석 결과",
+        "price_label": "가격",
+        "downtime_label": "회복 기간",
+        "select_button": "시술 선택",
+        "selected_button": "선택됨",
+        "next_step_selected": "선택하신 시술로 진행하시겠습니까?",
+        "next_step_default": "원하시는 시술을 선택하거나 심층 상담을 요청하세요.",
+        "proceed_button": "선택한 시술로 예약",
+        "consult_doctor_button": "원장님 정밀 상담 요청",
+        "premium_package": "프리미엄 패키지",
+        "best_match": "추천 시술 1순위",
+        "booking_title": "아름다운 변화의 시작",
+        "booking_desc": "지금 바로 맞춤 시술을 예약하세요.",
+        "book_button": "예약하기",
+        "confirmed_title": "예약이 확정되었습니다",
+        "confirmed_desc_pre": "",
+        "confirmed_desc_post": "에 뵙겠습니다.",
+        "cat_Pigmentation": "색소/미백 클리닉",
+        "cat_Redness": "홍조/붉은기 클리닉",
+        "cat_Acne": "여드름 클리닉",
+        "cat_Lifting": "리프팅/탄력 클리닉",
+        "cat_Scars": "흉터/모공 클리닉",
+        "cat_Skin Care": "스킨케어/관리",
+        "cat_Program": "프리미엄 패키지"
+    },
+    "Admin": {
+        "dashboard_title": "대시보드",
+        "overview": "금일 클리닉 현황 개요",
+        "total_consultations": "총 상담",
+        "total_records": "총 기록",
+        "recent_activity": "최근 활동",
+        "system_status": "시스템 상태",
+        "recent_consultations": "최근 상담 내역",
+        "table": {
+            "patient": "환자명",
+            "time": "시간",
+            "concerns": "고민",
+            "status": "상태",
+            "action": "작업",
+            "view": "보기",
+            "no_data": "상담 내역이 없습니다."
+        }
+    },
+    "LightMode": {
+        "title": "간편 체크인",
+        "subtitle": "30초 만에 완료되는 나만의 AI 피부 분석",
+        "name_label": "이름",
+        "name_placeholder": "예: 홍길동",
+        "phone_label": "전화번호",
+        "phone_placeholder": "예: 010-0000-0000",
+        "start_button": "분석 시작",
+        "concerns": {
+            "label": "피부 고민 (최대 3개 선택)",
+            "pigmentation": "기미 / 잡티",
+            "acne": "여드름 / 트러블",
+            "pores": "넓은 모공",
+            "wrinkles": "주름 / 노화",
+            "sagging": "처짐 / 탄력",
+            "redness": "붉은기 / 홍조"
+        },
+        "skinType": {
+            "label": "피부 타입",
+            "dry": "건성",
+            "dry_desc": "세안 후 당김이 심하고 각질이 일어남",
+            "oily": "지성",
+            "oily_desc": "얼굴 전체에 유분기가 많고 번들거림",
+            "combination": "복합성",
+            "combination_desc": "T존은 지성, 볼은 건성",
+            "sensitive": "민감성",
+            "sensitive_desc": "자극에 약하고 쉽게 붉어짐",
+            "normal": "중성",
+            "normal_desc": "유수분 밸런스가 좋음"
+        },
+        "budget": {
+            "label": "희망 예산",
+            "placeholder": "예산을 선택하세요",
+            "economy": "실속형 (20만원 미만)",
+            "standard": "표준형 (20~40만원)",
+            "premium": "프리미엄 (40만원 이상)"
+        },
+        "analyze_button": "결과 분석하기",
+        "analyzing": {
+            "title": "분석 중입니다...",
+            "subtitle": "40여 가지 시술 중 최적의 솔루션을 찾고 있습니다."
+        },
+        "result": {
+            "title": "분석 완료!",
+            "subtitle": "고객님의 피부 프로필에 맞는 최적의 시술을 확인하세요.",
+            "best_match": "베스트 매치",
+            "cta_title": "상세 리포트가 필요하신가요?",
+            "cta_desc": "3가지 추가 추천 시술과 상세 분석을 확인하세요.",
+            "cta_button": "심층 상담 예약 (Full)"
+        }
+    },
+    "FullModeIntro": {
+        "title": "프리미엄 정밀 상담",
+        "subtitle": "피부과 전문의와 함께하는 심층 분석 솔루션",
+        "benefit_1": "AI + 전문의 이중 체크",
+        "benefit_2": "10페이지 분량의 상세 리포트",
+        "benefit_3": "맞춤 시술 및 홈케어 가이드",
+        "price_label": "상담비",
+        "price_value": "30,000원",
+        "cta_button": "예약 및 결제하기",
+        "processing_payment": "결제 처리 중..."
+    }
+}

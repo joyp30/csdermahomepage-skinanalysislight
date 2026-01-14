@@ -1,0 +1,204 @@
+{
+    "Brand": {
+        "name": "Seoul Dermatology",
+        "app_name": "Smart Consult",
+        "guest_mode": "Guest Mode"
+    },
+    "Index": {
+        "title": "Welcome to AntiGravity Clinic",
+        "welcome": "Experience the future of dermatology with our AI-powered skin analysis system.",
+        "start_button": "Start Consultation",
+        "consultation_button": "Start Consultation",
+        "staff_button": "Staff Login",
+        "new_badge": "NEW",
+        "ai_evaluation": "AI-Powered Evaluation",
+        "hero_title_1": "Advanced Skin",
+        "hero_title_2": "Consultation",
+        "card_consultation_title": "New Consultation",
+        "card_consultation_desc": "Start a new skin analysis with our AI-powered survey.",
+        "card_consultation_action": "Start Now",
+        "feature_analysis_title": "Real-time Analysis",
+        "feature_analysis_desc": "Instant treatment plans",
+        "feature_reports_title": "Detailed Reports",
+        "feature_reports_desc": "Comprehensive PDFs"
+    },
+    "Questions": {
+        "q1_concerns": {
+            "title": "What are your main skin concerns?",
+            "subtitle": "Select all that apply.",
+            "options": {
+                "pigmentation": "Pigmentation / Dark Spots",
+                "acne": "Acne / Breakouts",
+                "pores": "Enlarged Pores",
+                "wrinkles": "Wrinkles / Fine Lines",
+                "sagging": "Sagging / Loss of Elasticity",
+                "redness": "Redness / Sensitivity",
+                "scars": "Acne Scars",
+                "dryness": "Dryness"
+            }
+        },
+        "q2_skin_type": {
+            "title": "How would you describe your skin type?",
+            "options": {
+                "oily": "Oily",
+                "dry": "Dry",
+                "combination": "Combination",
+                "sensitive": "Sensitive",
+                "normal": "Normal"
+            }
+        },
+        "q3_history": {
+            "title": "Have you had any skin treatments in the last 6 months?",
+            "options": {
+                "yes": "Yes",
+                "no": "No"
+            }
+        },
+        "q_pigment_type": {
+            "title": "How does the pigmentation look?",
+            "options": {
+                "mist": "Widespread like mist (Melasma)",
+                "spot": "Distinct spots (Freckles/Age spots)",
+                "pih": "Dark spots from acne (PIH)",
+                "dull": "Overall dull skin tone"
+            }
+        },
+        "q_redness_type": {
+            "title": "When is the redness most visible?",
+            "options": {
+                "acne_red": "With Acne",
+                "flush": "Heat/Emotion flushing",
+                "veins": "Visible blood vessels"
+            }
+        },
+        "q_acne_state": {
+            "title": "What is your current acne state?",
+            "options": {
+                "comedonal": "Small bumps (Comedonal)",
+                "inflammatory": "Red and painful (Inflammatory)",
+                "scars_pores": "Mostly scars and pores now"
+            }
+        },
+        "q_budget": {
+            "title": "What is your budget per session?",
+            "options": {
+                "economy": "Under 200,000 KRW",
+                "standard": "200,000 ~ 400,000 KRW",
+                "premium": "Over 400,000 KRW"
+            }
+        },
+        "q_downtime": {
+            "title": "Acceptable downtime?",
+            "options": {
+                "none": "None (Immediate daily life)",
+                "weekend": "Weekend (2-3 days redness)",
+                "week": "1 Week (Scabs/Peeling OK)"
+            }
+        }
+    },
+    "CheckIn": {
+        "title": "Welcome",
+        "description": "Please enter your details to start.",
+        "name_label": "Full Name",
+        "name_placeholder": "e.g. Jane Doe",
+        "phone_label": "Phone Number",
+        "phone_placeholder": "e.g. 010-1234-5678",
+        "submit_button": "Start",
+        "loading": "Checking in..."
+    },
+    "Survey": {
+        "step_progress": "Step {current} / {total}",
+        "next_button": "Next Question",
+        "prev_button": "Previous",
+        "complete_button": "Complete Survey",
+        "submitting": "Submitting..."
+    },
+    "Results": {
+        "analyzing_title": "Analyzing your skin profile...",
+        "analyzing_desc": "Matching optimal treatments based on your survey.",
+        "analysis_not_found": "Analysis Not Found",
+        "not_found_desc": "We couldn't retrieve your consultation results.",
+        "retake_button": "Retake Analysis",
+        "complete_badge": "Analysis Complete",
+        "title": "Your Personalized Treatment Plan",
+        "subtitle": "Based on your concerns ({concerns}), we recommend the following:",
+        "photos_title": "AI Skin Analysis",
+        "price_label": "Price",
+        "downtime_label": "Downtime",
+        "select_button": "Select Treatment",
+        "selected_button": "Selected",
+        "next_step_selected": "Would you like to proceed with this treatment?",
+        "next_step_default": "Please select a treatment or consult a doctor.",
+        "proceed_button": "Proceed with Selection",
+        "consult_doctor_button": "Detailed Doctor Consult"
+    },
+    "Admin": {
+        "dashboard_title": "Dashboard",
+        "overview": "Overview of clinic activity today.",
+        "total_consultations": "Total Consultations",
+        "total_records": "Total records",
+        "recent_activity": "Recent Activity",
+        "system_status": "System status",
+        "recent_consultations": "Recent Consultations",
+        "table": {
+            "patient": "Patient Name",
+            "time": "Time",
+            "concerns": "Concerns",
+            "status": "Status",
+            "action": "Action",
+            "view": "View",
+            "no_data": "No consultations found."
+        }
+    },
+    "LightMode": {
+        "title": "Quick Check-in",
+        "subtitle": "Get your personalized skin analysis in 30 seconds.",
+        "name_label": "Name",
+        "name_placeholder": "e.g. Jane Doe",
+        "phone_label": "Phone",
+        "phone_placeholder": "e.g. 010-0000-0000",
+        "start_button": "Start Analysis",
+        "concerns": {
+            "label": "Concerns (Select up to 3)",
+            "pigmentation": "Pigmentation / Dark Spots",
+            "acne": "Acne / Breakouts",
+            "pores": "Enlarged Pores",
+            "wrinkles": "Wrinkles / Aging",
+            "sagging": "Sagging / Lifting",
+            "redness": "Redness / Sensitivity"
+        },
+        "skinType": {
+            "label": "Skin Type",
+            "dry": "Dry",
+            "dry_desc": "Tight, flaky, or rough",
+            "oily": "Oily",
+            "oily_desc": "Shiny, greasy, prone to acne",
+            "combination": "Combination",
+            "combination_desc": "Oily T-zone, dry cheeks",
+            "sensitive": "Sensitive",
+            "sensitive_desc": "Reacts easily, redness",
+            "normal": "Normal",
+            "normal_desc": "Balanced, no major issues"
+        },
+        "budget": {
+            "label": "Budget Range",
+            "placeholder": "Select your budget",
+            "economy": "Value Focus (< 200k)",
+            "standard": "Standard (200k-400k)",
+            "premium": "Premium (> 400k)"
+        },
+        "analyze_button": "Analyze Results",
+        "analyzing": {
+            "title": "Analyzing...",
+            "subtitle": "Matching you with over 40 treatments."
+        },
+        "result": {
+            "title": "Analysis Complete!",
+            "subtitle": "Based on your profile, we identified key treatments.",
+            "best_match": "Best Match",
+            "cta_title": "Want the full report?",
+            "cta_desc": "Unlock 3 more recommendations and detailed breakdown.",
+            "cta_button": "Book Full Consultation"
+        }
+    }
+}

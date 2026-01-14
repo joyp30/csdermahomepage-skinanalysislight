@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Videos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <h1 class="text-3xl font-bold text-slate-900 text-center">Verification Results</h1>
+
+        <div class="space-y-8">
+            <!-- Video 1 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold">1. Wedding Prep Scenario (Normal/Pigment/Premium)</h2>
+                    <span class="bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full text-xs">PASSED</span>
+                </div>
+                <div class="aspect-video bg-black rounded-xl overflow-hidden relative">
+                    <img src="./wedding.webp" class="w-full h-full object-contain" alt="Wedding Scenario Video">
+                </div>
+                <p class="mt-4 text-slate-600">
+                    <strong>Inputs:</strong> Name: Wedding Test, Concerns: Pigmentation+Wrinkles, Skin: Normal, Budget:
+                    Premium<br>
+                    <strong>Result:</strong> Spot Removal (Basic) - Correctly prioritized pigment clearing.
+                </p>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold">2. Anti-Aging Scenario (Dry/Wrinkles/Premium)</h2>
+                    <span class="bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full text-xs">PASSED</span>
+                </div>
+                <div class="aspect-video bg-black rounded-xl overflow-hidden relative">
+                    <img src="./anti_aging.webp" class="w-full h-full object-contain" alt="Anti-Aging Scenario Video">
+                </div>
+                <p class="mt-4 text-slate-600">
+                    <strong>Inputs:</strong> Name: Scenario A, Concerns: Wrinkles, Skin: Dry, Budget: Premium<br>
+                    <strong>Result:</strong> Oligio - Correctly identified premium lifting treatment.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

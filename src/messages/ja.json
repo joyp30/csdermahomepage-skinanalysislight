@@ -1,0 +1,107 @@
+{
+    "Index": {
+        "title": "アンチグラビティ・クリニックへようこそ",
+        "consultation_button": "カウンセリング開始",
+        "staff_button": "スタッフログイン"
+    },
+    "CheckIn": {
+        "title": "ようこそ",
+        "description": "詳細を入力して開始してください。",
+        "name_label": "お名前",
+        "name_placeholder": "例：山田 太郎",
+        "phone_label": "電話番号",
+        "phone_placeholder": "例：010-1234-5678",
+        "submit_button": "開始",
+        "loading": "確認中..."
+    },
+    "Survey": {
+        "step_progress": "ステップ {current} / {total}",
+        "next_button": "次の質問",
+        "complete_button": "アンケート完了",
+        "submitting": "送信中..."
+    },
+    "Results": {
+        "analyzing_title": "肌プロフィールを分析中...",
+        "analyzing_desc": "アンケートに基づいて最適な治療をマッチングしています。",
+        "analysis_not_found": "分析結果が見つかりません",
+        "not_found_desc": "カウンセリング結果を取得できませんでした。",
+        "retake_button": "アンケートをやり直す",
+        "complete_badge": "分析完了",
+        "title": "あなただけの治療プラン",
+        "subtitle": "お悩み ({concerns}) に基づき、以下をお勧めします：",
+        "photos_title": "肌診断写真",
+        "price_label": "価格",
+        "downtime_label": "ダウンタイム",
+        "select_button": "治療を選択",
+        "proceed_button": "選択した内容で進む"
+    },
+    "Admin": {
+        "dashboard_title": "ダッシュボード",
+        "overview": "本日のクリニック活動概要。",
+        "total_consultations": "総カウンセリング数",
+        "total_records": "総記録",
+        "recent_activity": "最近のアクティビティ",
+        "system_status": "システムステータス",
+        "recent_consultations": "最近のカウンセリング",
+        "table": {
+            "patient": "患者名",
+            "time": "時間",
+            "concerns": "お悩み",
+            "status": "ステータス",
+            "action": "操作",
+            "view": "表示",
+            "no_data": "カウンセリングが見つかりません。"
+        }
+    },
+    "LightMode": {
+        "title": "簡易チェックイン",
+        "subtitle": "30秒で完了するAI肌診断",
+        "name_label": "お名前",
+        "name_placeholder": "例：山田 花子",
+        "phone_label": "電話番号",
+        "phone_placeholder": "例：010-0000-0000",
+        "start_button": "診断スタート",
+        "concerns": {
+            "label": "お悩み (最大3つ)",
+            "pigmentation": "シミ / 色素沈着",
+            "acne": "ニキビ / 肌荒れ",
+            "pores": "毛穴の開き",
+            "wrinkles": "シワ / 老化",
+            "sagging": "たるみ / リフトアップ",
+            "redness": "赤み / 敏感肌"
+        },
+        "skinType": {
+            "label": "肌質",
+            "dry": "乾燥肌",
+            "dry_desc": "つっぱり感やカサつきがある",
+            "oily": "脂性肌",
+            "oily_desc": "顔全体のテカリが気になる",
+            "combination": "混合肌",
+            "combination_desc": "Tゾーンはテカり、頬は乾燥",
+            "sensitive": "敏感肌",
+            "sensitive_desc": "刺激に弱く赤みが出やすい",
+            "normal": "普通肌",
+            "normal_desc": "水分と油分のバランスが良い"
+        },
+        "budget": {
+            "label": "ご予算",
+            "placeholder": "予算を選択してください",
+            "economy": "エコノミー (20万ウォン未満)",
+            "standard": "標準 (20~40万ウォン)",
+            "premium": "プレミアム (40万ウォン以上)"
+        },
+        "analyze_button": "結果を分析する",
+        "analyzing": {
+            "title": "分析中...",
+            "subtitle": "40以上の治療法から最適なものをマッチングしています。"
+        },
+        "result": {
+            "title": "分析完了！",
+            "subtitle": "あなたの肌プロフィールに最適な治療法が見つかりました。",
+            "best_match": "ベストマッチ",
+            "cta_title": "詳細レポートが必要ですか？",
+            "cta_desc": "さらに3つの推奨事項と詳細な内訳を確認できます。",
+            "cta_button": "詳細カウンセリング予約"
+        }
+    }
+}
