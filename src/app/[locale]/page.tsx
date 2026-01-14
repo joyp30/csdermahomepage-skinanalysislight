@@ -6,10 +6,8 @@ import { Sparkles, ArrowRight, Check, Sun, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getLightRecommendation, LightAnswers, RecommendationResult } from '@/lib/logic/light-mode';
-import { createLead } from './(light)/consult/light/actions';
 import { useTranslations, useLocale } from 'next-intl';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 
 // ----------------------------------------------------------------------
 // Constants & Types
@@ -105,7 +103,7 @@ const ChoiceCard = ({
 
 // Progress Bar
 const ProgressBar = ({ step }: { step: LightStep }) => {
-  const steps = ['checkin', 'survey', 'deep_dive', 'result'];
+  const steps = ['survey', 'deep_dive', 'result'];
   const currentIndex = steps.indexOf(step === 'analyzing' ? 'deep_dive' : step);
   const progress = Math.max(5, ((currentIndex + 1) / steps.length) * 100);
 
@@ -126,13 +124,11 @@ const ProgressBar = ({ step }: { step: LightStep }) => {
 // ----------------------------------------------------------------------
 
 export default function Home() {
-  const [step, setStep] = useState<LightStep>('checkin');
+  const [step, setStep] = useState<LightStep>('survey');
   const t = useTranslations('LightMode');
   const locale = useLocale();
 
-  const [data, setData] = useState<LightAnswers & { name: string, phone: string, budget: string }>({
-    name: '',
-    phone: '',
+  const [data, setData] = useState<LightAnswers>({
     concerns: [],
     skinType: '',
     budget: '',
@@ -141,12 +137,7 @@ export default function Home() {
   const [result, setResult] = useState<RecommendationResult | null>(null);
 
   const handleNext = async () => {
-    if (step === 'checkin') {
-      if (data.name && data.phone) {
-        await createLead({ name: data.name, phone: data.phone });
-        setStep('survey');
-      }
-    } else if (step === 'survey') {
+    if (step === 'survey') {
       if (data.concerns.includes('pigmentation') || data.concerns.includes('acne') ||
         data.concerns.includes('wrinkles') || data.concerns.includes('sagging')) {
         setStep('deep_dive');
@@ -224,51 +215,6 @@ export default function Home() {
             {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
 
             <AnimatePresence mode="wait">
-
-              {/* STEP 1: CHECK-IN */}
-              {step === 'checkin' && (
-                <motion.div
-                  key="checkin"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-8"
-                >
-                  <div className="space-y-4 text-center lg:text-left">
-                    <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs font-sans">Welcome to Seoul Skin</span>
-                    <h1 className="text-4xl lg:text-6xl font-medium text-slate-900 tracking-tight font-serif">{t('title')}</h1>
-                  </div>
-
-                  <div className="space-y-5 bg-white/50 backdrop-blur-lg p-8 rounded-3xl border border-white/60 shadow-xl">
-                    <div className="space-y-2">
-                      <Label className="text-slate-500 font-medium ml-1">이름</Label>
-                      <Input
-                        placeholder={t('name_placeholder')}
-                        value={data.name}
-                        onChange={(e) => setData({ ...data, name: e.target.value })}
-                        className="h-16 text-xl bg-white/80 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-2xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-slate-500 font-medium ml-1">연락처</Label>
-                      <Input
-                        placeholder={t('phone_placeholder')}
-                        value={data.phone}
-                        onChange={(e) => setData({ ...data, phone: e.target.value })}
-                        className="h-16 text-xl bg-white/80 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-2xl"
-                      />
-                    </div>
-                  </div>
-
-                  <Button
-                    className="w-full h-16 text-xl font-bold rounded-2xl bg-slate-900 hover:bg-slate-800 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.01]"
-                    onClick={handleNext}
-                    disabled={!data.name || !data.phone}
-                  >
-                    {t('start_button')} <ArrowRight className="ml-2 w-6 h-6" />
-                  </Button>
-                </motion.div>
-              )}
 
               {/* STEP 2: SURVEY */}
               {step === 'survey' && (
