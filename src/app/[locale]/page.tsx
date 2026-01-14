@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, Check, Sun, Shield } from 'lucide-react';
+import { Sparkles, ArrowRight, Check, Sun, Shield, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getLightRecommendation, LightAnswers, RecommendationResult } from '@/lib/logic/light-mode';
@@ -14,12 +14,12 @@ import { Label } from '@/components/ui/label';
 // ----------------------------------------------------------------------
 
 const CONCERN_ITEMS = [
-  { id: 'pigmentation', icon: '✨', color: 'from-amber-200 to-yellow-400' },
-  { id: 'acne', icon: '🔴', color: 'from-red-200 to-pink-400' },
-  { id: 'pores', icon: '🕳️', color: 'from-gray-200 to-slate-400' },
-  { id: 'wrinkles', icon: '👵', color: 'from-purple-200 to-violet-400' },
-  { id: 'sagging', icon: '🆙', color: 'from-blue-200 to-indigo-400' },
-  { id: 'redness', icon: '😳', color: 'from-rose-200 to-red-400' }
+  { id: 'pigmentation', icon: '✨', color: 'text-amber-500' },
+  { id: 'acne', icon: '🔴', color: 'text-rose-500' },
+  { id: 'pores', icon: '🕳️', color: 'text-slate-500' },
+  { id: 'wrinkles', icon: '👵', color: 'text-purple-500' },
+  { id: 'sagging', icon: '🆙', color: 'text-indigo-500' },
+  { id: 'redness', icon: '😳', color: 'text-red-500' }
 ];
 
 const SKIN_TYPES = [
@@ -47,14 +47,15 @@ interface PageAnswers extends LightAnswers {
 // Sub-Components
 // ----------------------------------------------------------------------
 
-// Premium Choice Card
+// Premium Choice Card v2 (Luxurious & High Contrast)
 const ChoiceCard = ({
   selected,
   onClick,
   children,
   className,
   icon,
-  imageUrl
+  imageUrl,
+  compact = false
 }: {
   selected: boolean;
   onClick: () => void;
@@ -62,43 +63,51 @@ const ChoiceCard = ({
   className?: string;
   icon?: React.ReactNode;
   imageUrl?: string;
+  compact?: boolean;
 }) => (
   <motion.button
-    whileHover={{ scale: 1.02, y: -2 }}
+    whileHover={{ scale: 1.01 }}
     whileTap={{ scale: 0.98 }}
     onClick={onClick}
     className={cn(
-      "relative w-full rounded-2xl text-left transition-all duration-300 border overflow-hidden group hover:shadow-xl hover:shadow-indigo-100/50 hover:-translate-y-1",
+      "relative w-full text-left transition-all duration-300 border group",
+      // Shape
+      compact ? "rounded-xl" : "rounded-2xl",
+      // Colors & Shadows
       selected
-        ? "border-indigo-500/50 bg-indigo-50/80 shadow-indigo-100 shadow-lg"
-        : "border-slate-100 bg-white/80 hover:bg-white/95 shadow-sm backdrop-blur-sm",
+        ? "bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-900/20"
+        : "bg-white border-slate-100 text-slate-800 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100",
       className
     )}
   >
     {selected && (
       <motion.div
-        layoutId="check"
-        className="absolute top-4 right-4 z-20 w-6 h-6 bg-slate-900 rounded-full flex items-center justify-center text-white shadow-md"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        className={cn(
+          "absolute z-20 flex items-center justify-center bg-white text-slate-900 rounded-full shadow-sm",
+          compact ? "top-3 right-3 w-5 h-5" : "top-4 right-4 w-6 h-6"
+        )}
       >
-        <Check size={14} strokeWidth={3} />
+        <Check size={compact ? 12 : 14} strokeWidth={3} />
       </motion.div>
     )}
 
     {/* Image Section */}
     {imageUrl && (
-      <div className="w-full aspect-[4/3] relative overflow-hidden bg-slate-100">
+      <div className={cn("w-full relative overflow-hidden bg-slate-50", compact ? "aspect-[3/2]" : "aspect-[4/3]")}>
         <div className="absolute inset-0 bg-slate-200 animate-pulse" /> {/* Placeholder */}
         <img
           src={imageUrl}
           alt="Visual Reference"
-          className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover relative z-10 transition-transform duration-700 group-hover:scale-105"
         />
-        <div className={cn("absolute inset-0 z-10 transition-colors duration-300", selected ? "bg-indigo-500/10" : "bg-transparent")} />
+        <div className={cn("absolute inset-0 z-10 transition-colors duration-300", selected ? "bg-slate-900/20" : "bg-transparent")} />
       </div>
     )}
 
     <div className={cn("relative z-10 flex items-center gap-4", imageUrl ? "p-5" : "p-5")}>
-      {icon && <div className="text-2xl opacity-90">{icon}</div>}
+      {icon && <div className={cn("text-2xl transition-opacity", selected ? "opacity-100" : "opacity-80")}>{icon}</div>}
       <div className="flex-1">
         {children}
       </div>
@@ -106,16 +115,16 @@ const ChoiceCard = ({
   </motion.button>
 );
 
-// Progress Bar
+// Minimalist Progress Bar
 const ProgressBar = ({ step }: { step: LightStep }) => {
   const steps = ['survey', 'deep_dive', 'result'];
   const currentIndex = steps.indexOf(step === 'analyzing' ? 'deep_dive' : step);
   const progress = Math.max(5, ((currentIndex + 1) / steps.length) * 100);
 
   return (
-    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-8">
+    <div className="w-full h-1 bg-slate-100/50 fixed top-0 left-0 lg:absolute lg:top-0 lg:left-0 z-50">
       <motion.div
-        className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+        className="h-full bg-slate-900"
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -181,45 +190,59 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#F8FAFC] font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900">
-      {/* LEFT PANEL: Premium Visual */}
-      <div className="hidden lg:flex lg:w-5/12 relative bg-slate-900 overflow-hidden shadow-2xl z-10">
-        <div className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay" style={{ backgroundImage: "url('/premium_bg.png')" }} />
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/90 via-slate-900/95 to-black" />
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white font-sans text-slate-900">
 
-        {/* Clean Abstract Decor */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+      {/* GLOBAL PROGRESS */}
+      {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
 
-        <div className="absolute inset-0 p-16 flex flex-col justify-end text-white z-20">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl flex items-center justify-center mb-8 shadow-2xl">
-              <Sparkles className="w-10 h-10 text-indigo-300" />
+      {/* LEFT PANEL: Premium Visual (Dark Mode Aesthetics) */}
+      <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10">
+        {/* Subtle Gradient Background */}
+        <div className="absolute top-0 -right-20 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 -left-20 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="absolute inset-0 px-16 py-20 flex flex-col justify-between z-20 text-white">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium tracking-widest uppercase text-slate-300 mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              Seoul Skin Clinic
             </div>
-            <h1 className="text-6xl font-black mb-6 leading-tight tracking-tight font-serif">
-              Premium <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">AI Analysis</span>
+            <h1 className="text-5xl xl:text-6xl font-serif font-medium leading-tight mb-6">
+              Discover <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-white to-indigo-100">
+                Your Perfect
+              </span> <br />
+              Solution
             </h1>
-            <p className="text-xl text-indigo-100/80 max-w-md leading-relaxed font-light font-serif italic">{t('subtitle')}</p>
+            <p className="text-lg text-slate-400 font-light max-w-sm leading-relaxed">
+              {t('subtitle') || "Advanced AI analysis for personalized dermatological treatments."}
+            </p>
+          </div>
 
-            <div className="mt-12 flex items-center gap-4 text-sm text-indigo-300/60 font-medium uppercase tracking-widest">
-              <div className="h-px w-8 bg-indigo-300/30" />
-              <span>Powered by CS Derma Logic</span>
+          <div className="flex items-center justify-between border-t border-white/10 pt-8">
+            <div className="flex gap-4">
+              <div className="text-center">
+                <span className="block text-2xl font-serif">15k+</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider">Cases</span>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <span className="block text-2xl font-serif">98%</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider">Accuracy</span>
+              </div>
             </div>
-          </motion.div>
+            <div className="text-right">
+              <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Powered by</p>
+              <p className="font-serif italic text-lg text-slate-300">CS Derma Logic</p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* RIGHT PANEL: Interaction Area */}
-      <div className="w-full lg:w-7/12 relative flex flex-col bg-slate-50">
-        <div className="absolute inset-0 bg-noise opacity-40 z-0 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-50/40 via-transparent to-transparent z-0" />
-
-        <div className="flex-1 overflow-y-auto relative z-10 p-6 md:p-12 lg:p-20 flex items-center justify-center">
-          <div className="w-full max-w-xl">
-
-            {/* Progress Bar (except on checkin/result) */}
-            {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
+      <div className="w-full lg:w-7/12 relative flex flex-col bg-white">
+        <div className="flex-1 overflow-y-auto relative z-10 px-6 py-12 md:px-12 md:py-16 lg:px-24 flex items-center justify-center">
+          <div className="w-full max-w-2xl">
 
             <AnimatePresence mode="wait">
 
@@ -227,16 +250,20 @@ export default function Home() {
               {step === 'survey' && (
                 <motion.div
                   key="survey"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  className="space-y-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="space-y-12"
                 >
+                  {/* Question 1 */}
                   <div className="space-y-6">
-                    <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
-                      <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">1</span>
-                      {t('concerns.label')} <span className="text-sm font-normal text-slate-400 ml-auto font-sans tracking-wide">Select up to 2</span>
-                    </h2>
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.01</span>
+                      <h2 className="text-2xl md:text-3xl font-serif font-medium text-slate-900">
+                        {t('concerns.label')}
+                      </h2>
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                       {CONCERN_ITEMS.map((c) => (
                         <ChoiceCard
@@ -249,67 +276,80 @@ export default function Home() {
                               concerns: selected ? prev.concerns.filter(id => id !== c.id) : [...prev.concerns, c.id].slice(0, 2)
                             }));
                           }}
-                          icon={<span className="text-2xl">{c.icon}</span>}
+                          icon={<span className="text-xl">{c.icon}</span>}
                         >
-                          <span className="font-bold text-lg">{t(`concerns.${c.id}`)}</span>
+                          <span className={cn("font-medium text-lg", data.concerns.includes(c.id) ? "text-white" : "text-slate-900")}>
+                            {t(`concerns.${c.id}`)}
+                          </span>
                         </ChoiceCard>
                       ))}
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
-                      <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">2</span>
-                      {t('skinType.label')}
-                    </h2>
-                    <div className="flex flex-wrap gap-3">
-                      {SKIN_TYPES.map(type => (
-                        <button
-                          key={type.id}
-                          onClick={() => setData({ ...data, skinType: type.id })}
-                          className={cn(
-                            "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
-                            data.skinType === type.id
-                              ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
-                              : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
-                          )}
-                        >
-                          <span className="mr-2">{type.emoji}</span> {t(`skinType.${type.id}`)}
-                        </button>
-                      ))}
+                  {/* Question 2 & 3 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="space-y-6">
+                      <div className="flex items-baseline gap-4">
+                        <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.02</span>
+                        <h2 className="text-xl md:text-2xl font-serif font-medium text-slate-900">
+                          {t('skinType.label')}
+                        </h2>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        {SKIN_TYPES.map(type => (
+                          <button
+                            key={type.id}
+                            onClick={() => setData({ ...data, skinType: type.id })}
+                            className={cn(
+                              "w-full flex items-center justify-between px-5 py-3 rounded-xl text-left border transition-all duration-200",
+                              data.skinType === type.id
+                                ? "bg-slate-900 text-white border-slate-900 shadow-lg"
+                                : "bg-white border-slate-100 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                            )}
+                          >
+                            <span className="text-sm font-medium">{t(`skinType.${type.id}`)}</span>
+                            {data.skinType === type.id && <Check size={14} />}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="flex items-baseline gap-4">
+                        <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.03</span>
+                        <h2 className="text-xl md:text-2xl font-serif font-medium text-slate-900">
+                          {t('budget.label')}
+                        </h2>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        {BUDGETS.map(b => (
+                          <button
+                            key={b.id}
+                            onClick={() => setData({ ...data, budget: b.id })}
+                            className={cn(
+                              "w-full flex items-center justify-between px-5 py-3 rounded-xl text-left border transition-all duration-200",
+                              data.budget === b.id
+                                ? "bg-slate-900 text-white border-slate-900 shadow-lg"
+                                : "bg-white border-slate-100 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                            )}
+                          >
+                            <span className="text-sm font-medium">{t(`budget.${b.id}`)}</span>
+                            {data.budget === b.id && <Check size={14} />}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
-                      <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">3</span>
-                      {t('budget.label')}
-                    </h2>
-                    <div className="flex flex-wrap gap-3">
-                      {BUDGETS.map(b => (
-                        <button
-                          key={b.id}
-                          onClick={() => setData({ ...data, budget: b.id })}
-                          className={cn(
-                            "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
-                            data.budget === b.id
-                              ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
-                              : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
-                          )}
-                        >
-                          <span className="mr-2">{b.emoji}</span> {t(`budget.${b.id}`)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-8">
+                  <div className="pt-8 flex justify-end">
                     <Button
-                      className="w-full h-16 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200"
+                      size="lg"
+                      className="h-14 px-8 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-base font-medium transition-all shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed group"
                       onClick={handleNext}
                       disabled={data.concerns.length === 0 || !data.skinType}
                     >
-                      {t('next_button') || 'Next Step'} <ArrowRight className="ml-2" />
+                      {t('next_button') || 'Next Step'}
+                      <ChevronRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </div>
                 </motion.div>
@@ -319,24 +359,28 @@ export default function Home() {
               {step === 'deep_dive' && (
                 <motion.div
                   key="deep_dive"
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  className="space-y-8"
+                  exit={{ opacity: 0, x: -20 }}
+                  className="space-y-10"
                 >
-                  <div className="text-center mb-8">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100 font-sans">
-                      <Sparkles size={12} /> AI Deep Analysis
+                  <div className="mb-10">
+                    <span className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-indigo-500 uppercase bg-indigo-50 rounded-full border border-indigo-100">
+                      Deep Architecture
                     </span>
-                    <h2 className="text-3xl font-medium text-slate-900 mb-2 font-serif lg:text-4xl">상세 정밀 진단</h2>
-                    <p className="text-slate-500 font-sans font-light">더 정확한 진단을 위해 추가 정보를 입력해주세요.</p>
+                    <h2 className="text-3xl md:text-4xl font-serif font-medium text-slate-900 leading-tight">
+                      상세 정밀 진단
+                    </h2>
+                    <p className="mt-3 text-slate-500 font-light text-lg">
+                      더 정확한 처방을 위해 추가 정보를 확인합니다.
+                    </p>
                   </div>
 
                   {/* MODULE I: Pigmentation */}
                   {activeModule === 'pigmentation' && (
-                    <div className="space-y-8">
-                      <div className="space-y-4">
-                        <Label className="text-lg font-medium text-slate-900 font-serif">Q. 거울을 보셨을 때 가장 비슷한 증상은?</Label>
+                    <div className="space-y-10">
+                      <div className="space-y-6">
+                        <Label className="text-xl font-medium text-slate-900 font-serif">거울을 보셨을 때 가장 비슷한 증상은?</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <ChoiceCard
                             selected={data.pigment_visual === 'melasma'}
@@ -344,7 +388,7 @@ export default function Home() {
                             imageUrl="/images/consult/melasma.png"
                           >
                             <span className="font-bold text-base block mb-1">기미 (Melasma)</span>
-                            <span className="text-xs text-slate-500 leading-tight block">뿌연 안개처럼 넓게 퍼진 갈색 반점</span>
+                            <span className="text-xs opacity-70 leading-tight block">뿌연 안개처럼 넓게 퍼진 반점</span>
                           </ChoiceCard>
 
                           <ChoiceCard
@@ -352,8 +396,8 @@ export default function Home() {
                             onClick={() => setData({ ...data, pigment_visual: 'freckle' })}
                             imageUrl="/images/consult/freckles.png"
                           >
-                            <span className="font-bold text-base block mb-1">주근깨/잡티 (Lentigines)</span>
-                            <span className="text-xs text-slate-500 leading-tight block">깨알처럼 경계가 뚜렷한 진한 점</span>
+                            <span className="font-bold text-base block mb-1">주근깨/잡티</span>
+                            <span className="text-xs opacity-70 leading-tight block">경계가 뚜렷한 진한 점</span>
                           </ChoiceCard>
 
                           <ChoiceCard
@@ -361,8 +405,8 @@ export default function Home() {
                             onClick={() => setData({ ...data, pigment_visual: 'pih' })}
                             imageUrl="/images/consult/pih.png"
                           >
-                            <span className="font-bold text-base block mb-1">여드름 자국 (PIH)</span>
-                            <span className="text-xs text-slate-500 leading-tight block">염증 후 남은 붉거나 거뭇한 자국</span>
+                            <span className="font-bold text-base block mb-1">여드름 자국</span>
+                            <span className="text-xs opacity-70 leading-tight block">염증 후 남은 붉거나 거뭇한 자국</span>
                           </ChoiceCard>
 
                           <ChoiceCard
@@ -371,23 +415,32 @@ export default function Home() {
                             imageUrl="/images/consult/dullness.png"
                           >
                             <span className="font-bold text-base block mb-1">칙칙함 (Dullness)</span>
-                            <span className="text-xs text-slate-500 leading-tight block">전체적으로 어둡고 고르지 못한 톤</span>
+                            <span className="text-xs opacity-70 leading-tight block">전체적으로 어두운 톤</span>
                           </ChoiceCard>
                         </div>
                       </div>
 
                       {data.pigment_visual === 'freckle' && (
-                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-4 pt-6 border-t border-slate-100">
-                          <Label className="text-lg font-bold text-slate-900">Q. 회복 기간(다운타임) 허용 범위</Label>
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-8 border-t border-slate-100">
+                          <Label className="text-xl font-medium text-slate-900 font-serif">회복 기간(다운타임) 허용 범위</Label>
                           <div className="grid grid-cols-1 gap-3">
                             <ChoiceCard selected={data.pigment_downtime === 'strict'} onClick={() => setData({ ...data, pigment_downtime: 'strict' })}>
-                              <span className="font-bold block text-slate-900">🩹 2주간 듀오덤 부착 가능 (확실한 제거)</span>
+                              <div className="flex items-center justify-between w-full">
+                                <span className="font-medium text-base">🩹 2주간 듀오덤 부착 가능 (확실한 제거)</span>
+                                <span className="text-xs font-bold uppercase tracking-wider opacity-50">High Effect</span>
+                              </div>
                             </ChoiceCard>
                             <ChoiceCard selected={data.pigment_downtime === 'social'} onClick={() => setData({ ...data, pigment_downtime: 'social' })}>
-                              <span className="font-bold block text-slate-900">🍂 테이프 없음 (5~7일간 거친 피부결 감수)</span>
+                              <div className="flex items-center justify-between w-full">
+                                <span className="font-medium text-base">🍂 테이프 없음 (거친 피부결 감수)</span>
+                                <span className="text-xs font-bold uppercase tracking-wider opacity-50">Balanced</span>
+                              </div>
                             </ChoiceCard>
                             <ChoiceCard selected={data.pigment_downtime === 'immediate'} onClick={() => setData({ ...data, pigment_downtime: 'immediate' })}>
-                              <span className="font-bold block text-slate-900">✨ 즉시 일상생활 복귀 (티 안 나게)</span>
+                              <div className="flex items-center justify-between w-full">
+                                <span className="font-medium text-base">✨ 즉시 일상생활 복귀 (티 안 나게)</span>
+                                <span className="text-xs font-bold uppercase tracking-wider opacity-50">Safe</span>
+                              </div>
                             </ChoiceCard>
                           </div>
                         </motion.div>
@@ -395,39 +448,37 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* MODULE II: Acne */}
+                  {/* MODULE II: Acne - Simplified UI within Deep Dive */}
                   {activeModule === 'acne' && (
-                    <div className="space-y-8">
-                      <div className="space-y-4">
-                        <Label className="text-lg font-medium text-slate-900 font-serif">Q. 골프, 등산, 여행 등 야외 활동이 많으신가요?</Label>
+                    <div className="space-y-10">
+                      <div className="space-y-6">
+                        <Label className="text-xl font-medium text-slate-900 font-serif">야외 활동(골프, 등산)이 잦으신가요?</Label>
                         <div className="grid grid-cols-2 gap-4">
-                          <ChoiceCard selected={data.acne_uv_risk === true} onClick={() => setData({ ...data, acne_uv_risk: true })} className="text-center block">
-                            <Sun className="w-8 h-8 mx-auto mb-3 text-amber-500" />
-                            <span className="font-bold block">네, 많습니다</span>
+                          <ChoiceCard selected={data.acne_uv_risk === true} onClick={() => setData({ ...data, acne_uv_risk: true })} className="text-center py-8">
+                            <Sun className="w-8 h-8 mx-auto mb-4 text-amber-500" />
+                            <span className="font-bold text-lg block">네, 자주 합니다</span>
                           </ChoiceCard>
-                          <ChoiceCard selected={data.acne_uv_risk === false} onClick={() => setData({ ...data, acne_uv_risk: false })} className="text-center block">
-                            <Shield className="w-8 h-8 mx-auto mb-3 text-emerald-500" />
-                            <span className="font-bold block">아니오 (실내 위주)</span>
+                          <ChoiceCard selected={data.acne_uv_risk === false} onClick={() => setData({ ...data, acne_uv_risk: false })} className="text-center py-8">
+                            <Shield className="w-8 h-8 mx-auto mb-4 text-emerald-500" />
+                            <span className="font-bold text-lg block">아니오 (실내 위주)</span>
                           </ChoiceCard>
                         </div>
                       </div>
 
                       {data.acne_uv_risk === false && (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4 pt-6 border-t border-slate-100">
-                          <Label className="text-lg font-bold text-slate-900">Q. 선호하는 치료 방향은?</Label>
-                          <div className="flex gap-4">
-                            <ChoiceCard selected={data.acne_value === 'economy'} onClick={() => setData({ ...data, acne_value: 'economy' })} className="flex-1">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6 pt-8 border-t border-slate-100">
+                          <Label className="text-xl font-medium text-slate-900 font-serif">선호하는 치료 방향</Label>
+                          <div className="grid grid-cols-2 gap-4">
+                            <ChoiceCard selected={data.acne_value === 'economy'} onClick={() => setData({ ...data, acne_value: 'economy' })} className="py-6">
                               <div className="text-center">
-                                <span className="text-2xl block mb-2">💰</span>
-                                <span className="font-bold block">가성비</span>
-                                <span className="text-xs text-slate-500">자외선 차단 필수</span>
+                                <span className="font-bold block text-lg mb-1">가성비</span>
+                                <span className="text-xs opacity-60">자외선 차단 필수</span>
                               </div>
                             </ChoiceCard>
-                            <ChoiceCard selected={data.acne_value === 'convenience'} onClick={() => setData({ ...data, acne_value: 'convenience' })} className="flex-1">
+                            <ChoiceCard selected={data.acne_value === 'convenience'} onClick={() => setData({ ...data, acne_value: 'convenience' })} className="py-6">
                               <div className="text-center">
-                                <span className="text-2xl block mb-2">⚡</span>
-                                <span className="font-bold block">편의성</span>
-                                <span className="text-xs text-slate-500">관리 편함</span>
+                                <span className="font-bold block text-lg mb-1">편의성</span>
+                                <span className="text-xs opacity-60">관리가 편함</span>
                               </div>
                             </ChoiceCard>
                           </div>
@@ -438,29 +489,35 @@ export default function Home() {
 
                   {/* MODULE III: Lifting */}
                   {activeModule === 'lifting' && (
-                    <div className="space-y-4">
-                      <Label className="text-lg font-medium text-slate-900 font-serif">Q. 가장 고민되는 노화 증상은?</Label>
-                      <div className="flex flex-col gap-3">
+                    <div className="space-y-6">
+                      <Label className="text-xl font-medium text-slate-900 font-serif">가장 고민되는 노화 증상</Label>
+                      <div className="grid grid-cols-1 gap-4">
                         <ChoiceCard selected={data.lifting_type === 'sagging'} onClick={() => setData({ ...data, lifting_type: 'sagging' })}>
-                          <span className="font-bold block text-lg mb-1">🔽 턱선 무너짐 / 심부볼 처짐</span>
+                          <span className="font-bold block text-lg">🔽 턱선 무너짐 / 심부볼 처짐</span>
                         </ChoiceCard>
                         <ChoiceCard selected={data.lifting_type === 'thin'} onClick={() => setData({ ...data, lifting_type: 'thin' })}>
-                          <span className="font-bold block text-lg mb-1">👵 잔주름 / 피부가 얇고 패임</span>
+                          <span className="font-bold block text-lg">👵 잔주름 / 피부가 얇고 패임</span>
                         </ChoiceCard>
                         <ChoiceCard selected={data.lifting_type === 'fat'} onClick={() => setData({ ...data, lifting_type: 'fat' })}>
-                          <span className="font-bold block text-lg mb-1">🐷 이중턱 / 얼굴 살이 많음</span>
+                          <span className="font-bold block text-lg">🐷 이중턱 / 얼굴 살이 많음</span>
                         </ChoiceCard>
                       </div>
                     </div>
                   )}
 
-                  <div className="pt-8">
+                  <div className="pt-10 flex justify-end">
                     <Button
-                      className="w-full h-16 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200"
-                      onClick={handleNext}
-                      disabled={data.concerns.length === 0 || !data.skinType}
+                      size="lg"
+                      className="h-14 px-8 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-base font-medium shadow-xl hover:shadow-2xl transition-all"
+                      onClick={handleFinish}
+                      disabled={
+                        (activeModule === 'pigmentation' && (!data.pigment_visual || (data.pigment_visual === 'freckle' && !data.pigment_downtime))) ||
+                        (activeModule === 'acne' && (data.acne_uv_risk === undefined || (data.acne_uv_risk === false && !data.acne_value))) ||
+                        (activeModule === 'lifting' && !data.lifting_type)
+                      }
                     >
-                      {t('analyze_button')} <Sparkles className="ml-2" />
+                      {t('analyze_button') || "Analyze Now"}
+                      <Sparkles className="ml-2 w-4 h-4" />
                     </Button>
                   </div>
                 </motion.div>
@@ -473,123 +530,107 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-center py-20"
+                  className="flex flex-col items-center justify-center py-32"
                 >
-                  <div className="relative w-32 h-32 mx-auto mb-10">
-                    <div className="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
-                    <div className="absolute inset-0 border-4 border-t-indigo-600 border-r-purple-600 border-b-transparent border-l-transparent rounded-full animate-spin"></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Sparkles className="w-8 h-8 text-purple-600 animate-pulse" />
-                    </div>
-                    {/* Orbiting particles */}
+                  <div className="relative w-24 h-24 mb-10">
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                      className="absolute -inset-4 rounded-full border border-indigo-100 border-dashed"
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0 rounded-full border-2 border-slate-100 border-t-slate-900"
                     />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Sparkles className="w-8 h-8 text-slate-900" />
+                    </div>
                   </div>
-                  <h2 className="text-3xl font-medium text-slate-900 mb-4 font-serif lg:text-4xl">{t('analyzing.title')}</h2>
-                  <p className="text-slate-500 text-lg font-sans font-light">{t('analyzing.subtitle')}</p>
+                  <h2 className="text-2xl font-serif font-medium text-slate-900 mb-3">{t('analyzing.title')}</h2>
+                  <p className="text-slate-400 font-light text-sm tracking-wide uppercase">{t('analyzing.subtitle')}</p>
                 </motion.div>
               )}
 
-              {/* STEP 5: RESULT */}
+              {/* STEP 5: RESULT - Minimalist Prescription Card */}
               {step === 'result' && result && (
                 <motion.div
                   key="result"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="space-y-8 pb-20"
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} // Elegant easing
+                  className="space-y-10 pb-20"
                 >
-                  <div className="text-center space-y-4">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", bounce: 0.5 }}
-                      className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mx-auto shadow-lg shadow-emerald-100"
-                    >
-                      <Check size={40} strokeWidth={4} />
-                    </motion.div>
-                    <h2 className="text-4xl font-black text-slate-900 font-serif">Analysis Complete</h2>
-                    <p className="text-slate-500 text-base px-4 font-medium leading-relaxed break-keep font-sans">{result.script}</p>
+                  <div className="text-center space-y-4 pt-10">
+                    <h2 className="text-4xl md:text-5xl font-serif text-slate-900">Rx. Prescription</h2>
+                    <p className="text-slate-500 text-lg font-light leading-relaxed max-w-lg mx-auto break-keep italic">
+                      "{result.script}"
+                    </p>
                   </div>
 
-                  {/* Main Recommendation Card */}
+                  {/* Main Card */}
                   <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-indigo-100 text-left border border-white relative overflow-hidden group hover:scale-[1.01] transition-transform duration-500"
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="bg-slate-900 rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl"
                   >
-                    <div className="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full blur-3xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                     <div className="relative z-10">
-                      <span className="bg-slate-900 text-white text-xs uppercase font-bold px-4 py-2 rounded-full inline-block tracking-wide shadow-lg mb-6 ring-2 ring-white/50">
+                      <span className="inline-block bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 text-indigo-200">
                         Best Solution
                       </span>
-                      <h3 className="text-3xl font-black text-slate-900 mb-3 leading-tight font-serif">{getTreatmentName(result.main)}</h3>
-                      <p className="text-slate-500 mb-8 leading-relaxed text-lg font-sans font-light">{getTreatmentDesc(result.main)}</p>
+                      <h3 className="text-3xl font-serif font-medium mb-4">{getTreatmentName(result.main)}</h3>
+                      <p className="text-white/60 mb-10 text-lg font-light leading-relaxed border-l-2 border-indigo-500 pl-4">
+                        {getTreatmentDesc(result.main)}
+                      </p>
 
-                      <div className="flex items-end justify-between border-t border-slate-100 pt-6">
+                      <div className="flex items-end justify-between">
                         <div>
-                          <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Estimated Cost</p>
-                          <span className="text-3xl font-black text-indigo-600 tracking-tight">{result.main.price}</span>
+                          <p className="text-xs text-indigo-300 uppercase tracking-wider mb-2">Estimated Price</p>
+                          <span className="text-4xl font-serif">{result.main.price}</span>
                         </div>
                         {result.package_info && (
-                          <span className="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg">
-                            {result.package_info}
-                          </span>
+                          <div className="text-right">
+                            <span className="block text-xs text-emerald-400 font-bold uppercase tracking-wider mb-1">Package Offer</span>
+                            <span className="text-sm text-white/80">{result.package_info}</span>
+                          </div>
                         )}
                       </div>
                     </div>
                   </motion.div>
 
-                  {/* Upsell Item */}
+                  {/* Upsell (Minimalist) */}
                   {result.upsell && (
                     <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.5 }}
-                      className="bg-gradient-to-r from-slate-50 via-white to-slate-50 rounded-2xl p-6 border border-slate-200 shadow-lg relative overflow-hidden"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center gap-6"
                     >
-                      <div className="absolute top-0 right-0 p-4 opacity-10">
-                        <Sparkles className="w-24 h-24" />
+                      <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center text-amber-600 flex-shrink-0">
+                        <Sparkles size={20} />
                       </div>
-                      <div className="flex items-start gap-4 relaitve z-10">
-                        <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 flex-shrink-0">
-                          <Sparkles size={24} fill="currentColor" className="text-amber-500" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h4 className="font-bold text-slate-900 text-lg">{getTreatmentName(result.upsell)}</h4>
-                            <span className="text-[10px] font-bold uppercase bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Better Together</span>
-                          </div>
-                          <p className="text-sm text-slate-500 line-clamp-2 mb-3">{getTreatmentDesc(result.upsell)}</p>
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold text-slate-700">{result.upsell.price}</span>
-                            <Button size="sm" variant="outline" className="h-9 px-4 text-xs font-bold border-slate-200 hover:bg-slate-100 hover:text-slate-900">
-                              + 추가하기
-                            </Button>
-                          </div>
-                        </div>
+                      <div className="flex-1">
+                        <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">Synergy Booster</span>
+                        <h4 className="text-lg font-medium text-slate-900">{getTreatmentName(result.upsell)}</h4>
+                        <p className="text-sm text-slate-500 mt-1">{result.upsell.price}</p>
                       </div>
+                      <Button variant="outline" size="sm" className="rounded-full border-slate-200 hover:bg-slate-50">
+                        View Details
+                      </Button>
                     </motion.div>
                   )}
 
-                  {/* Final CTA */}
+                  {/* CTA */}
                   <motion.a
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
+                    transition={{ delay: 0.6 }}
                     href={`/${locale}/consult/light`}
-                    className="block w-full text-center bg-slate-900 text-white font-bold text-lg py-5 rounded-2xl shadow-xl shadow-slate-200 hover:shadow-2xl hover:scale-[1.01] transition-all active:scale-[0.98]"
+                    className="block w-full py-6 text-center text-lg font-medium text-slate-400 hover:text-slate-900 transition-colors underline decoration-1 underline-offset-4"
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.reload();
                     }}
                   >
-                    예약 및 상담 신청하기
+                    Start New Analysis
                   </motion.a>
                 </motion.div>
               )}
