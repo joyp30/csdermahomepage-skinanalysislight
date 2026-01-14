@@ -38,6 +38,11 @@ const BUDGETS = [
 
 type LightStep = 'checkin' | 'survey' | 'deep_dive' | 'analyzing' | 'result';
 
+// Define local state type that includes 'budget' which is not in the core Logic interface
+interface PageAnswers extends LightAnswers {
+  budget?: string;
+}
+
 // ----------------------------------------------------------------------
 // Sub-Components
 // ----------------------------------------------------------------------
@@ -128,7 +133,8 @@ export default function Home() {
   const t = useTranslations('LightMode');
   const locale = useLocale();
 
-  const [data, setData] = useState<LightAnswers>({
+  // Initialize with PageAnswers type
+  const [data, setData] = useState<PageAnswers>({
     concerns: [],
     skinType: '',
     budget: '',
@@ -155,6 +161,7 @@ export default function Home() {
   };
 
   const getDeepDiveModule = () => {
+    if (!data.concerns) return null;
     if (data.concerns.includes('pigmentation')) return 'pigmentation';
     if (data.concerns.includes('acne')) return 'acne';
     if (data.concerns.includes('wrinkles') || data.concerns.includes('sagging')) return 'lifting';
@@ -450,12 +457,8 @@ export default function Home() {
                   <div className="pt-8">
                     <Button
                       className="w-full h-16 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200"
-                      onClick={handleFinish}
-                      disabled={
-                        (activeModule === 'pigmentation' && (!data.pigment_visual || (data.pigment_visual === 'freckle' && !data.pigment_downtime))) ||
-                        (activeModule === 'acne' && (data.acne_uv_risk === undefined || (data.acne_uv_risk === false && !data.acne_value))) ||
-                        (activeModule === 'lifting' && !data.lifting_type)
-                      }
+                      onClick={handleNext}
+                      disabled={data.concerns.length === 0 || !data.skinType}
                     >
                       {t('analyze_button')} <Sparkles className="ml-2" />
                     </Button>
