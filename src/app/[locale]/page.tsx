@@ -73,9 +73,9 @@ const ChoiceCard = ({
       "relative w-full text-left transition-all duration-300 border group",
       // Shape
       compact ? "rounded-xl" : "rounded-2xl",
-      // Colors & Shadows
+      // Colors & Shadows - Fixed rendering issue by using specific hex codes if Tailwind defaults fail
       selected
-        ? "bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-900/20"
+        ? "bg-[#0f172a] border-[#0f172a] text-white shadow-xl shadow-slate-900/20"
         : "bg-white border-slate-100 text-slate-800 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100",
       className
     )}
@@ -85,7 +85,7 @@ const ChoiceCard = ({
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         className={cn(
-          "absolute z-20 flex items-center justify-center bg-white text-slate-900 rounded-full shadow-sm",
+          "absolute z-20 flex items-center justify-center bg-white text-[#0f172a] rounded-full shadow-sm",
           compact ? "top-3 right-3 w-5 h-5" : "top-4 right-4 w-6 h-6"
         )}
       >
@@ -102,7 +102,7 @@ const ChoiceCard = ({
           alt="Visual Reference"
           className="w-full h-full object-cover relative z-10 transition-transform duration-700 group-hover:scale-105"
         />
-        <div className={cn("absolute inset-0 z-10 transition-colors duration-300", selected ? "bg-slate-900/20" : "bg-transparent")} />
+        <div className={cn("absolute inset-0 z-10 transition-colors duration-300", selected ? "bg-[#0f172a]/20" : "bg-transparent")} />
       </div>
     )}
 
@@ -124,7 +124,7 @@ const ProgressBar = ({ step }: { step: LightStep }) => {
   return (
     <div className="w-full h-1 bg-slate-100/50 fixed top-0 left-0 lg:absolute lg:top-0 lg:left-0 z-50">
       <motion.div
-        className="h-full bg-slate-900"
+        className="h-full bg-[#0f172a]"
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -150,6 +150,10 @@ export default function Home() {
   });
 
   const [result, setResult] = useState<RecommendationResult | null>(null);
+
+  // Dynamic Text Handling for "Next Step"
+  // Use fallback if translation key is missing in build
+  const nextButtonText = t.has('next_button') ? t('next_button') : (locale === 'ko' ? '다음 단계' : 'Next Step');
 
   const handleNext = async () => {
     if (step === 'survey') {
@@ -190,31 +194,41 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-white font-sans text-slate-900">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white font-sans text-[#0f172a]">
 
       {/* GLOBAL PROGRESS */}
       {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
 
       {/* LEFT PANEL: Premium Visual (Dark Mode Aesthetics) */}
       <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10">
-        {/* Subtle Gradient Background */}
-        <div className="absolute top-0 -right-20 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 -left-20 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-70"
+          style={{ backgroundImage: "url('/premium_bg_luxury.png')" }}
+        />
+
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19]/90 via-[#0B0F19]/80 to-[#0B0F19]/60" />
 
         <div className="absolute inset-0 px-16 py-20 flex flex-col justify-between z-20 text-white">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium tracking-widest uppercase text-slate-300 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Seoul Skin Clinic
+            {/* Logo */}
+            <div className="mb-10">
+              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-12 w-auto object-contain brightness-0 invert opacity-90" />
             </div>
-            <h1 className="text-5xl xl:text-6xl font-serif font-medium leading-tight mb-6">
+
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium tracking-widest uppercase text-slate-300 mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              Premium AI Analysis
+            </div>
+            <h1 className="text-5xl xl:text-6xl font-serif font-medium leading-tight mb-6 tracking-tight">
               Discover <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-white to-indigo-100">
-                Your Perfect
+              <span className="text-amber-200">
+                Perfect Skin
               </span> <br />
               Solution
             </h1>
-            <p className="text-lg text-slate-400 font-light max-w-sm leading-relaxed">
+            <p className="text-lg text-slate-300 font-light max-w-sm leading-relaxed">
               {t('subtitle') || "Advanced AI analysis for personalized dermatological treatments."}
             </p>
           </div>
@@ -222,18 +236,18 @@ export default function Home() {
           <div className="flex items-center justify-between border-t border-white/10 pt-8">
             <div className="flex gap-4">
               <div className="text-center">
-                <span className="block text-2xl font-serif">15k+</span>
-                <span className="text-xs text-slate-500 uppercase tracking-wider">Cases</span>
+                <span className="block text-2xl font-serif text-white">15k+</span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider">Cases</span>
               </div>
               <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
-                <span className="block text-2xl font-serif">98%</span>
-                <span className="text-xs text-slate-500 uppercase tracking-wider">Accuracy</span>
+                <span className="block text-2xl font-serif text-white">98%</span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider">Accuracy</span>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Powered by</p>
-              <p className="font-serif italic text-lg text-slate-300">CS Derma Logic</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Powered by</p>
+              <p className="font-serif italic text-lg text-amber-200/80">CS Derma Logic</p>
             </div>
           </div>
         </div>
@@ -243,6 +257,11 @@ export default function Home() {
       <div className="w-full lg:w-7/12 relative flex flex-col bg-white">
         <div className="flex-1 overflow-y-auto relative z-10 px-6 py-12 md:px-12 md:py-16 lg:px-24 flex items-center justify-center">
           <div className="w-full max-w-2xl">
+
+            {/* Mobile Logo Only */}
+            <div className="lg:hidden mb-8 flex justify-center">
+              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-8 w-auto mix-blend-multiply opacity-80" />
+            </div>
 
             <AnimatePresence mode="wait">
 
@@ -260,7 +279,7 @@ export default function Home() {
                   <div className="space-y-6">
                     <div className="flex items-baseline gap-4">
                       <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.01</span>
-                      <h2 className="text-2xl md:text-3xl font-serif font-medium text-slate-900">
+                      <h2 className="text-2xl md:text-3xl font-serif font-medium text-[#0f172a]">
                         {t('concerns.label')}
                       </h2>
                     </div>
@@ -278,7 +297,7 @@ export default function Home() {
                           }}
                           icon={<span className="text-xl">{c.icon}</span>}
                         >
-                          <span className={cn("font-medium text-lg", data.concerns.includes(c.id) ? "text-white" : "text-slate-900")}>
+                          <span className={cn("font-medium text-lg", data.concerns.includes(c.id) ? "text-white" : "text-[#0f172a]")}>
                             {t(`concerns.${c.id}`)}
                           </span>
                         </ChoiceCard>
@@ -291,7 +310,7 @@ export default function Home() {
                     <div className="space-y-6">
                       <div className="flex items-baseline gap-4">
                         <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.02</span>
-                        <h2 className="text-xl md:text-2xl font-serif font-medium text-slate-900">
+                        <h2 className="text-xl md:text-2xl font-serif font-medium text-[#0f172a]">
                           {t('skinType.label')}
                         </h2>
                       </div>
@@ -303,7 +322,7 @@ export default function Home() {
                             className={cn(
                               "w-full flex items-center justify-between px-5 py-3 rounded-xl text-left border transition-all duration-200",
                               data.skinType === type.id
-                                ? "bg-slate-900 text-white border-slate-900 shadow-lg"
+                                ? "bg-[#0f172a] text-white border-[#0f172a] shadow-lg"
                                 : "bg-white border-slate-100 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
                             )}
                           >
@@ -317,7 +336,7 @@ export default function Home() {
                     <div className="space-y-6">
                       <div className="flex items-baseline gap-4">
                         <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Q.03</span>
-                        <h2 className="text-xl md:text-2xl font-serif font-medium text-slate-900">
+                        <h2 className="text-xl md:text-2xl font-serif font-medium text-[#0f172a]">
                           {t('budget.label')}
                         </h2>
                       </div>
@@ -329,7 +348,7 @@ export default function Home() {
                             className={cn(
                               "w-full flex items-center justify-between px-5 py-3 rounded-xl text-left border transition-all duration-200",
                               data.budget === b.id
-                                ? "bg-slate-900 text-white border-slate-900 shadow-lg"
+                                ? "bg-[#0f172a] text-white border-[#0f172a] shadow-lg"
                                 : "bg-white border-slate-100 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
                             )}
                           >
@@ -344,11 +363,11 @@ export default function Home() {
                   <div className="pt-8 flex justify-end">
                     <Button
                       size="lg"
-                      className="h-14 px-8 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-base font-medium transition-all shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed group"
+                      className="h-14 px-8 rounded-full bg-[#0f172a] hover:bg-slate-800 text-white text-base font-medium transition-all shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed group"
                       onClick={handleNext}
                       disabled={data.concerns.length === 0 || !data.skinType}
                     >
-                      {t('next_button') || 'Next Step'}
+                      {nextButtonText}
                       <ChevronRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </div>
@@ -365,10 +384,10 @@ export default function Home() {
                   className="space-y-10"
                 >
                   <div className="mb-10">
-                    <span className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-indigo-500 uppercase bg-indigo-50 rounded-full border border-indigo-100">
+                    <span className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-[#0f172a] uppercase bg-slate-100 rounded-full border border-slate-200">
                       Deep Architecture
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-serif font-medium text-slate-900 leading-tight">
+                    <h2 className="text-3xl md:text-4xl font-serif font-medium text-[#0f172a] leading-tight">
                       상세 정밀 진단
                     </h2>
                     <p className="mt-3 text-slate-500 font-light text-lg">
@@ -380,7 +399,7 @@ export default function Home() {
                   {activeModule === 'pigmentation' && (
                     <div className="space-y-10">
                       <div className="space-y-6">
-                        <Label className="text-xl font-medium text-slate-900 font-serif">거울을 보셨을 때 가장 비슷한 증상은?</Label>
+                        <Label className="text-xl font-medium text-[#0f172a] font-serif">거울을 보셨을 때 가장 비슷한 증상은?</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <ChoiceCard
                             selected={data.pigment_visual === 'melasma'}
@@ -422,7 +441,7 @@ export default function Home() {
 
                       {data.pigment_visual === 'freckle' && (
                         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-8 border-t border-slate-100">
-                          <Label className="text-xl font-medium text-slate-900 font-serif">회복 기간(다운타임) 허용 범위</Label>
+                          <Label className="text-xl font-medium text-[#0f172a] font-serif">회복 기간(다운타임) 허용 범위</Label>
                           <div className="grid grid-cols-1 gap-3">
                             <ChoiceCard selected={data.pigment_downtime === 'strict'} onClick={() => setData({ ...data, pigment_downtime: 'strict' })}>
                               <div className="flex items-center justify-between w-full">
@@ -452,7 +471,7 @@ export default function Home() {
                   {activeModule === 'acne' && (
                     <div className="space-y-10">
                       <div className="space-y-6">
-                        <Label className="text-xl font-medium text-slate-900 font-serif">야외 활동(골프, 등산)이 잦으신가요?</Label>
+                        <Label className="text-xl font-medium text-[#0f172a] font-serif">야외 활동(골프, 등산)이 잦으신가요?</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <ChoiceCard selected={data.acne_uv_risk === true} onClick={() => setData({ ...data, acne_uv_risk: true })} className="text-center py-8">
                             <Sun className="w-8 h-8 mx-auto mb-4 text-amber-500" />
@@ -467,7 +486,7 @@ export default function Home() {
 
                       {data.acne_uv_risk === false && (
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6 pt-8 border-t border-slate-100">
-                          <Label className="text-xl font-medium text-slate-900 font-serif">선호하는 치료 방향</Label>
+                          <Label className="text-xl font-medium text-[#0f172a] font-serif">선호하는 치료 방향</Label>
                           <div className="grid grid-cols-2 gap-4">
                             <ChoiceCard selected={data.acne_value === 'economy'} onClick={() => setData({ ...data, acne_value: 'economy' })} className="py-6">
                               <div className="text-center">
@@ -490,7 +509,7 @@ export default function Home() {
                   {/* MODULE III: Lifting */}
                   {activeModule === 'lifting' && (
                     <div className="space-y-6">
-                      <Label className="text-xl font-medium text-slate-900 font-serif">가장 고민되는 노화 증상</Label>
+                      <Label className="text-xl font-medium text-[#0f172a] font-serif">가장 고민되는 노화 증상</Label>
                       <div className="grid grid-cols-1 gap-4">
                         <ChoiceCard selected={data.lifting_type === 'sagging'} onClick={() => setData({ ...data, lifting_type: 'sagging' })}>
                           <span className="font-bold block text-lg">🔽 턱선 무너짐 / 심부볼 처짐</span>
@@ -508,7 +527,7 @@ export default function Home() {
                   <div className="pt-10 flex justify-end">
                     <Button
                       size="lg"
-                      className="h-14 px-8 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-base font-medium shadow-xl hover:shadow-2xl transition-all"
+                      className="h-14 px-8 rounded-full bg-[#0f172a] hover:bg-slate-800 text-white text-base font-medium shadow-xl hover:shadow-2xl transition-all"
                       onClick={handleFinish}
                       disabled={
                         (activeModule === 'pigmentation' && (!data.pigment_visual || (data.pigment_visual === 'freckle' && !data.pigment_downtime))) ||
@@ -536,13 +555,13 @@ export default function Home() {
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-0 rounded-full border-2 border-slate-100 border-t-slate-900"
+                      className="absolute inset-0 rounded-full border-2 border-slate-100 border-t-[#0f172a]"
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Sparkles className="w-8 h-8 text-slate-900" />
+                      <Sparkles className="w-8 h-8 text-[#0f172a]" />
                     </div>
                   </div>
-                  <h2 className="text-2xl font-serif font-medium text-slate-900 mb-3">{t('analyzing.title')}</h2>
+                  <h2 className="text-2xl font-serif font-medium text-[#0f172a] mb-3">{t('analyzing.title')}</h2>
                   <p className="text-slate-400 font-light text-sm tracking-wide uppercase">{t('analyzing.subtitle')}</p>
                 </motion.div>
               )}
@@ -557,7 +576,7 @@ export default function Home() {
                   className="space-y-10 pb-20"
                 >
                   <div className="text-center space-y-4 pt-10">
-                    <h2 className="text-4xl md:text-5xl font-serif text-slate-900">Rx. Prescription</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif text-[#0f172a]">Rx. Prescription</h2>
                     <p className="text-slate-500 text-lg font-light leading-relaxed max-w-lg mx-auto break-keep italic">
                       "{result.script}"
                     </p>
@@ -568,22 +587,22 @@ export default function Home() {
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-slate-900 rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl"
+                    className="bg-[#0f172a] rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl"
                   >
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                     <div className="relative z-10">
-                      <span className="inline-block bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 text-indigo-200">
+                      <span className="inline-block bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 text-amber-200">
                         Best Solution
                       </span>
                       <h3 className="text-3xl font-serif font-medium mb-4">{getTreatmentName(result.main)}</h3>
-                      <p className="text-white/60 mb-10 text-lg font-light leading-relaxed border-l-2 border-indigo-500 pl-4">
+                      <p className="text-white/60 mb-10 text-lg font-light leading-relaxed border-l-2 border-amber-500 pl-4">
                         {getTreatmentDesc(result.main)}
                       </p>
 
                       <div className="flex items-end justify-between">
                         <div>
-                          <p className="text-xs text-indigo-300 uppercase tracking-wider mb-2">Estimated Price</p>
+                          <p className="text-xs text-amber-300/80 uppercase tracking-wider mb-2">Estimated Price</p>
                           <span className="text-4xl font-serif">{result.main.price}</span>
                         </div>
                         {result.package_info && (
@@ -609,7 +628,7 @@ export default function Home() {
                       </div>
                       <div className="flex-1">
                         <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">Synergy Booster</span>
-                        <h4 className="text-lg font-medium text-slate-900">{getTreatmentName(result.upsell)}</h4>
+                        <h4 className="text-lg font-medium text-[#0f172a]">{getTreatmentName(result.upsell)}</h4>
                         <p className="text-sm text-slate-500 mt-1">{result.upsell.price}</p>
                       </div>
                       <Button variant="outline" size="sm" className="rounded-full border-slate-200 hover:bg-slate-50">
@@ -624,7 +643,7 @@ export default function Home() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                     href={`/${locale}/consult/light`}
-                    className="block w-full py-6 text-center text-lg font-medium text-slate-400 hover:text-slate-900 transition-colors underline decoration-1 underline-offset-4"
+                    className="block w-full py-6 text-center text-lg font-medium text-slate-400 hover:text-[#0f172a] transition-colors underline decoration-1 underline-offset-4"
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.reload();

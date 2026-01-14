@@ -184,6 +184,7 @@
         "phone_label": "전화번호",
         "phone_placeholder": "예: 010-0000-0000",
         "start_button": "분석 시작",
+        "next_button": "다음 단계",
         "concerns": {
             "label": "피부 고민 (최대 3개 선택)",
             "pigmentation": "기미 / 잡티",
