@@ -125,14 +125,19 @@ const ProgressBar = ({ step }: { step: LightStep }) => {
 // Main Component
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+// Main Component
+// ----------------------------------------------------------------------
+
 export default function LightConsultationPage() {
-    const [step, setStep] = useState<LightStep>('checkin');
+    // 1. Initial step is now 'survey' to skip Check-in
+    const [step, setStep] = useState<LightStep>('survey');
     const t = useTranslations('LightMode');
     const locale = useLocale();
 
     const [data, setData] = useState<LightAnswers & { name: string, phone: string, budget: string }>({
-        name: '',
-        phone: '',
+        name: 'Guest', // Default values since check-in is skipped
+        phone: '000-0000-0000',
         concerns: [],
         skinType: '',
         budget: '',
@@ -141,15 +146,9 @@ export default function LightConsultationPage() {
     const [result, setResult] = useState<RecommendationResult | null>(null);
 
     const handleNext = async () => {
-        if (step === 'checkin') {
-            if (data.name && data.phone) {
-                await createLead({ name: data.name, phone: data.phone });
-                setStep('survey');
-            }
-        } else if (step === 'survey') {
-            // Simplify: Skip Deep Dive entirely
-            handleFinish();
-        }
+        // Logic simplified: Checkin removed, Deep Dive removed. 
+        // Just finish after Survey.
+        handleFinish();
     };
 
     const handleFinish = () => {
@@ -212,50 +211,7 @@ export default function LightConsultationPage() {
 
                         <AnimatePresence mode="wait">
 
-                            {/* STEP 1: CHECK-IN */}
-                            {step === 'checkin' && (
-                                <motion.div
-                                    key="checkin"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                    className="space-y-8"
-                                >
-                                    <div className="space-y-4 text-center lg:text-left">
-                                        <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs font-sans">Welcome to Seoul Skin</span>
-                                        <h1 className="text-4xl lg:text-6xl font-medium text-slate-900 tracking-tight font-serif">{t('title')}</h1>
-                                    </div>
-
-                                    <div className="space-y-5 bg-white/50 backdrop-blur-lg p-8 rounded-3xl border border-white/60 shadow-xl">
-                                        <div className="space-y-2">
-                                            <Label className="text-slate-500 font-medium ml-1">이름</Label>
-                                            <Input
-                                                placeholder={t('name_placeholder')}
-                                                value={data.name}
-                                                onChange={(e) => setData({ ...data, name: e.target.value })}
-                                                className="h-16 text-xl bg-white/80 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-2xl"
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="text-slate-500 font-medium ml-1">연락처</Label>
-                                            <Input
-                                                placeholder={t('phone_placeholder')}
-                                                value={data.phone}
-                                                onChange={(e) => setData({ ...data, phone: e.target.value })}
-                                                className="h-16 text-xl bg-white/80 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-2xl"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <Button
-                                        className="w-full h-16 text-xl font-bold rounded-2xl bg-slate-900 hover:bg-slate-800 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.01]"
-                                        onClick={handleNext}
-                                        disabled={!data.name || !data.phone}
-                                    >
-                                        {t('start_button')} <ArrowRight className="ml-2 w-6 h-6" />
-                                    </Button>
-                                </motion.div>
-                            )}
+                            {/* STEP 1: CHECK-IN (REMOVED / SKIPPED) */}
 
                             {/* STEP 2: SURVEY */}
                             {step === 'survey' && (
@@ -314,13 +270,34 @@ export default function LightConsultationPage() {
                                         </div>
                                     </div>
 
-                                    {/* Budget Removed */}
+                                    <div className="space-y-6">
+                                        <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
+                                            <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">3</span>
+                                            {t('budget.label')}
+                                        </h2>
+                                        <div className="flex flex-wrap gap-3">
+                                            {BUDGETS.map(b => (
+                                                <button
+                                                    key={b.id}
+                                                    onClick={() => setData({ ...data, budget: b.id })}
+                                                    className={cn(
+                                                        "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
+                                                        data.budget === b.id
+                                                            ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
+                                                            : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
+                                                    )}
+                                                >
+                                                    <span className="mr-2">{b.emoji}</span> {t(`budget.${b.id}`)}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
                                     <div className="pt-8">
                                         <Button
                                             className="w-full h-16 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200"
                                             onClick={handleNext}
-                                            disabled={data.concerns.length === 0 || !data.skinType}
+                                            disabled={data.concerns.length === 0 || !data.skinType || !data.budget}
                                         >
                                             {t('analyze_button') || 'Analyze Result'} <Sparkles className="ml-2" />
                                         </Button>
