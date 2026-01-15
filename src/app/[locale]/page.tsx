@@ -426,12 +426,7 @@ export default function Home() {
 
                       <div className="flex items-end justify-between">
                         {/* Price Removed as per request */}
-                        {result.package_info && (
-                          <div className="text-right w-full">
-                            <span className="block text-xs text-emerald-400 font-bold uppercase tracking-wider mb-1">Package Offer</span>
-                            <span className="text-sm text-white/80">{result.package_info}</span>
-                          </div>
-                        )}
+                        {/* Package Info Removed as per request */}
                       </div>
                     </div>
                   </motion.div>

@@ -20,7 +20,6 @@ export interface LightAnswers {
 export interface RecommendationResult {
     main: Treatment;
     upsell?: Treatment;
-    package_info?: string;
     script: string;
 }
 
@@ -128,7 +127,6 @@ export function getLightRecommendation(answers: LightAnswers): RecommendationRes
     return {
         main: mainTx!,
         upsell: upsellTx,
-        script,
-        package_info: "PKG 5 Sessions" // Placeholder
+        script
     };
 }
