@@ -200,24 +200,24 @@ export default function Home() {
       {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
 
       {/* LEFT PANEL: Premium Visual (Dark Mode Aesthetics) */}
-      <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10 transition-all duration-1000">
-        {/* Background Image - Scientific Concept */}
+      <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10">
+        {/* Background Image - User Reference */}
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-          style={{ backgroundImage: "url('/skin_science_bg.png')" }}
+          style={{ backgroundImage: "url('/skin_layer_bg.png')" }}
         />
 
-        {/* Overlay Gradient - Adjusted for readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19]/90 via-[#0B0F19]/70 to-[#0B0F19]/40 backdrop-blur-[2px]" />
+        {/* Overlay Gradient - Stronger for text readability on busy background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19]/90 via-[#0B0F19]/60 to-transparent" />
 
-        <div className="absolute inset-0 px-16 py-20 flex flex-col justify-between z-20 text-white">
+        <div className="absolute inset-0 px-12 py-16 flex flex-col justify-between z-20 text-white">
           <div>
-            {/* Logo */}
-            <div className="mb-12">
-              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-10 w-auto object-contain brightness-0 invert opacity-90" />
+            {/* Logo - Resized and Styled */}
+            <div className="mb-10 flex justify-start">
+              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-8 w-auto object-contain brightness-0 invert opacity-80" />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-widest uppercase text-amber-300 mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-widest uppercase text-amber-300 mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               Premium AI Analysis
             </div>
@@ -238,7 +238,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-white/10 pt-8 mt-12 backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/5 shadow-inner">
+          <div className="flex items-center justify-between border-t border-white/10 pt-8 mt-12 backdrop-blur-md bg-white/5 rounded-2xl p-6 border border-white/5 shadow-2xl">
             <div className="flex gap-8">
               <div className="text-center">
                 <span className="block text-3xl font-serif text-white drop-shadow-lg">15k+</span>
