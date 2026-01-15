@@ -8,7 +8,16 @@ import { cn } from '@/lib/utils';
 import { getLightRecommendation, LightAnswers, RecommendationResult } from '@/lib/logic/light-mode';
 import { useTranslations, useLocale } from 'next-intl';
 import { Label } from '@/components/ui/label';
-import ResearchEthicsModal from '@/components/ResearchEthicsModal';
+// import ResearchEthicsModal from '@/components/ResearchEthicsModal';
+
+...
+
+<div className="mb-10 flex flex-col items-start gap-4">
+  <div className="bg-white p-3 rounded-xl shadow-lg">
+    <img src="/logo_simple.jpg" alt="Seoul Skin Clinc Logo" className="h-12 w-auto object-contain" />
+  </div>
+  {/* <ResearchEthicsModal /> */}
+</div>
 
 // ----------------------------------------------------------------------
 // Constants & Types
@@ -203,7 +212,7 @@ export default function Home() {
               <div className="bg-white p-3 rounded-xl shadow-lg">
                 <img src="/logo_simple.jpg" alt="Seoul Skin Clinc Logo" className="h-12 w-auto object-contain" />
               </div>
-              <ResearchEthicsModal />
+              {/* <ResearchEthicsModal /> */}
             </div>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-widest uppercase text-amber-300 mb-6 shadow-sm">
