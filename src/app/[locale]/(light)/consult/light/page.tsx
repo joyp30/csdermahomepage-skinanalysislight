@@ -147,12 +147,8 @@ export default function LightConsultationPage() {
                 setStep('survey');
             }
         } else if (step === 'survey') {
-            if (data.concerns.includes('pigmentation') || data.concerns.includes('acne') ||
-                data.concerns.includes('wrinkles') || data.concerns.includes('sagging')) {
-                setStep('deep_dive');
-            } else {
-                handleFinish();
-            }
+            // Simplify: Skip Deep Dive entirely
+            handleFinish();
         }
     };
 
@@ -162,15 +158,6 @@ export default function LightConsultationPage() {
         setResult(rec);
         setTimeout(() => { setStep('result'); }, 2500);
     };
-
-    const getDeepDiveModule = () => {
-        if (data.concerns.includes('pigmentation')) return 'pigmentation';
-        if (data.concerns.includes('acne')) return 'acne';
-        if (data.concerns.includes('wrinkles') || data.concerns.includes('sagging')) return 'lifting';
-        return null;
-    };
-
-    const activeModule = step === 'deep_dive' ? getDeepDiveModule() : null;
 
     const getTreatmentName = (rec: any) => {
         if (!rec) return '';
@@ -327,28 +314,7 @@ export default function LightConsultationPage() {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-6">
-                                        <h2 className="text-2xl font-medium flex items-center gap-3 font-serif lg:text-3xl">
-                                            <span className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm font-light font-sans">3</span>
-                                            {t('budget.label')}
-                                        </h2>
-                                        <div className="flex flex-wrap gap-3">
-                                            {BUDGETS.map(b => (
-                                                <button
-                                                    key={b.id}
-                                                    onClick={() => setData({ ...data, budget: b.id })}
-                                                    className={cn(
-                                                        "px-6 py-3 rounded-full transition-all text-sm lg:text-base border hover:scale-105",
-                                                        data.budget === b.id
-                                                            ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-200"
-                                                            : "bg-white/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white"
-                                                    )}
-                                                >
-                                                    <span className="mr-2">{b.emoji}</span> {t(`budget.${b.id}`)}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    {/* Budget Removed */}
 
                                     <div className="pt-8">
                                         <Button
@@ -356,166 +322,13 @@ export default function LightConsultationPage() {
                                             onClick={handleNext}
                                             disabled={data.concerns.length === 0 || !data.skinType}
                                         >
-                                            {t('next_button') || 'Next Step'} <ArrowRight className="ml-2" />
+                                            {t('analyze_button') || 'Analyze Result'} <Sparkles className="ml-2" />
                                         </Button>
                                     </div>
                                 </motion.div>
                             )}
 
-                            {/* STEP 3: DEEP DIVE */}
-                            {step === 'deep_dive' && (
-                                <motion.div
-                                    key="deep_dive"
-                                    initial={{ opacity: 0, x: 50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -50 }}
-                                    className="space-y-8"
-                                >
-                                    <div className="text-center mb-8">
-                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100 font-sans">
-                                            <Sparkles size={12} /> AI Deep Analysis
-                                        </span>
-                                        <h2 className="text-3xl font-medium text-slate-900 mb-2 font-serif lg:text-4xl">상세 정밀 진단</h2>
-                                        <p className="text-slate-500 font-sans font-light">더 정확한 진단을 위해 추가 정보를 입력해주세요.</p>
-                                    </div>
-
-                                    {/* MODULE I: Pigmentation */}
-                                    {activeModule === 'pigmentation' && (
-                                        <div className="space-y-8">
-                                            <div className="space-y-4">
-                                                <Label className="text-lg font-medium text-slate-900 font-serif">Q. 거울을 보셨을 때 가장 비슷한 증상은?</Label>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <ChoiceCard
-                                                        selected={data.pigment_visual === 'melasma'}
-                                                        onClick={() => setData({ ...data, pigment_visual: 'melasma' })}
-                                                        imageUrl="/images/consult/melasma.png"
-                                                    >
-                                                        <span className="font-bold text-base block mb-1">기미 (Melasma)</span>
-                                                        <span className="text-xs text-slate-500 leading-tight block">뿌연 안개처럼 넓게 퍼진 갈색 반점</span>
-                                                    </ChoiceCard>
-
-                                                    <ChoiceCard
-                                                        selected={data.pigment_visual === 'freckle'}
-                                                        onClick={() => setData({ ...data, pigment_visual: 'freckle' })}
-                                                        imageUrl="/images/consult/freckles.png"
-                                                    >
-                                                        <span className="font-bold text-base block mb-1">주근깨/잡티 (Lentigines)</span>
-                                                        <span className="text-xs text-slate-500 leading-tight block">깨알처럼 경계가 뚜렷한 진한 점</span>
-                                                    </ChoiceCard>
-
-                                                    <ChoiceCard
-                                                        selected={data.pigment_visual === 'pih'}
-                                                        onClick={() => setData({ ...data, pigment_visual: 'pih' })}
-                                                        imageUrl="/images/consult/pih.png"
-                                                    >
-                                                        <span className="font-bold text-base block mb-1">여드름 자국 (PIH)</span>
-                                                        <span className="text-xs text-slate-500 leading-tight block">염증 후 남은 붉거나 거뭇한 자국</span>
-                                                    </ChoiceCard>
-
-                                                    <ChoiceCard
-                                                        selected={data.pigment_visual === 'dullness'}
-                                                        onClick={() => setData({ ...data, pigment_visual: 'dullness' })}
-                                                        imageUrl="/images/consult/dullness.png"
-                                                    >
-                                                        <span className="font-bold text-base block mb-1">칙칙함 (Dullness)</span>
-                                                        <span className="text-xs text-slate-500 leading-tight block">전체적으로 어둡고 고르지 못한 톤</span>
-                                                    </ChoiceCard>
-                                                </div>
-                                            </div>
-
-                                            {data.pigment_visual === 'freckle' && (
-                                                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-4 pt-6 border-t border-slate-100">
-                                                    <Label className="text-lg font-bold text-slate-900">Q. 회복 기간(다운타임) 허용 범위</Label>
-                                                    <div className="grid grid-cols-1 gap-3">
-                                                        <ChoiceCard selected={data.pigment_downtime === 'strict'} onClick={() => setData({ ...data, pigment_downtime: 'strict' })}>
-                                                            <span className="font-bold block text-slate-900">🩹 2주간 듀오덤 부착 가능 (확실한 제거)</span>
-                                                        </ChoiceCard>
-                                                        <ChoiceCard selected={data.pigment_downtime === 'social'} onClick={() => setData({ ...data, pigment_downtime: 'social' })}>
-                                                            <span className="font-bold block text-slate-900">🍂 테이프 없음 (5~7일간 거친 피부결 감수)</span>
-                                                        </ChoiceCard>
-                                                        <ChoiceCard selected={data.pigment_downtime === 'immediate'} onClick={() => setData({ ...data, pigment_downtime: 'immediate' })}>
-                                                            <span className="font-bold block text-slate-900">✨ 즉시 일상생활 복귀 (티 안 나게)</span>
-                                                        </ChoiceCard>
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {/* MODULE II: Acne */}
-                                    {activeModule === 'acne' && (
-                                        <div className="space-y-8">
-                                            <div className="space-y-4">
-                                                <Label className="text-lg font-medium text-slate-900 font-serif">Q. 골프, 등산, 여행 등 야외 활동이 많으신가요?</Label>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <ChoiceCard selected={data.acne_uv_risk === true} onClick={() => setData({ ...data, acne_uv_risk: true })} className="text-center block">
-                                                        <Sun className="w-8 h-8 mx-auto mb-3 text-amber-500" />
-                                                        <span className="font-bold block">네, 많습니다</span>
-                                                    </ChoiceCard>
-                                                    <ChoiceCard selected={data.acne_uv_risk === false} onClick={() => setData({ ...data, acne_uv_risk: false })} className="text-center block">
-                                                        <Shield className="w-8 h-8 mx-auto mb-3 text-emerald-500" />
-                                                        <span className="font-bold block">아니오 (실내 위주)</span>
-                                                    </ChoiceCard>
-                                                </div>
-                                            </div>
-
-                                            {data.acne_uv_risk === false && (
-                                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4 pt-6 border-t border-slate-100">
-                                                    <Label className="text-lg font-bold text-slate-900">Q. 선호하는 치료 방향은?</Label>
-                                                    <div className="flex gap-4">
-                                                        <ChoiceCard selected={data.acne_value === 'economy'} onClick={() => setData({ ...data, acne_value: 'economy' })} className="flex-1">
-                                                            <div className="text-center">
-                                                                <span className="text-2xl block mb-2">💰</span>
-                                                                <span className="font-bold block">가성비</span>
-                                                                <span className="text-xs text-slate-500">자외선 차단 필수</span>
-                                                            </div>
-                                                        </ChoiceCard>
-                                                        <ChoiceCard selected={data.acne_value === 'convenience'} onClick={() => setData({ ...data, acne_value: 'convenience' })} className="flex-1">
-                                                            <div className="text-center">
-                                                                <span className="text-2xl block mb-2">⚡</span>
-                                                                <span className="font-bold block">편의성</span>
-                                                                <span className="text-xs text-slate-500">관리 편함</span>
-                                                            </div>
-                                                        </ChoiceCard>
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {/* MODULE III: Lifting */}
-                                    {activeModule === 'lifting' && (
-                                        <div className="space-y-4">
-                                            <Label className="text-lg font-medium text-slate-900 font-serif">Q. 가장 고민되는 노화 증상은?</Label>
-                                            <div className="flex flex-col gap-3">
-                                                <ChoiceCard selected={data.lifting_type === 'sagging'} onClick={() => setData({ ...data, lifting_type: 'sagging' })}>
-                                                    <span className="font-bold block text-lg mb-1">🔽 턱선 무너짐 / 심부볼 처짐</span>
-                                                </ChoiceCard>
-                                                <ChoiceCard selected={data.lifting_type === 'thin'} onClick={() => setData({ ...data, lifting_type: 'thin' })}>
-                                                    <span className="font-bold block text-lg mb-1">👵 잔주름 / 피부가 얇고 패임</span>
-                                                </ChoiceCard>
-                                                <ChoiceCard selected={data.lifting_type === 'fat'} onClick={() => setData({ ...data, lifting_type: 'fat' })}>
-                                                    <span className="font-bold block text-lg mb-1">🐷 이중턱 / 얼굴 살이 많음</span>
-                                                </ChoiceCard>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div className="pt-8">
-                                        <Button
-                                            className="w-full h-16 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200"
-                                            onClick={handleFinish}
-                                            disabled={
-                                                (activeModule === 'pigmentation' && (!data.pigment_visual || (data.pigment_visual === 'freckle' && !data.pigment_downtime))) ||
-                                                (activeModule === 'acne' && (data.acne_uv_risk === undefined || (data.acne_uv_risk === false && !data.acne_value))) ||
-                                                (activeModule === 'lifting' && !data.lifting_type)
-                                            }
-                                        >
-                                            {t('analyze_button')} <Sparkles className="ml-2" />
-                                        </Button>
-                                    </div>
-                                </motion.div>
-                            )}
+                            {/* Deep Dive Removed */}
 
                             {/* STEP 4: ANALYZING */}
                             {step === 'analyzing' && (
