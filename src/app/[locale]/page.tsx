@@ -200,54 +200,59 @@ export default function Home() {
       {step !== 'checkin' && step !== 'result' && <ProgressBar step={step} />}
 
       {/* LEFT PANEL: Premium Visual (Dark Mode Aesthetics) */}
-      <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10">
-        {/* Background Image */}
+      <div className="hidden lg:flex lg:w-5/12 relative bg-[#0B0F19] overflow-hidden z-10 transition-all duration-1000">
+        {/* Background Image - Scientific Concept */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: "url('/premium_bg_luxury.png')" }}
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-105"
+          style={{ backgroundImage: "url('/skin_science_bg.png')" }}
         />
 
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19]/90 via-[#0B0F19]/80 to-[#0B0F19]/60" />
+        {/* Overlay Gradient - Adjusted for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19]/90 via-[#0B0F19]/70 to-[#0B0F19]/40 backdrop-blur-[2px]" />
 
         <div className="absolute inset-0 px-16 py-20 flex flex-col justify-between z-20 text-white">
           <div>
             {/* Logo */}
-            <div className="mb-10">
-              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-12 w-auto object-contain brightness-0 invert opacity-90" />
+            <div className="mb-12">
+              <img src="/logo_final.jpg" alt="Seoul Skin Clinic" className="h-10 w-auto object-contain brightness-0 invert opacity-90" />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium tracking-widest uppercase text-slate-300 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-widest uppercase text-amber-300 mb-8 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               Premium AI Analysis
             </div>
-            <h1 className="text-5xl xl:text-6xl font-serif font-medium leading-tight mb-6 tracking-tight">
+
+            {/* Enhanced Typography for "Eye-catching" request */}
+            <h1 className="text-5xl xl:text-6xl font-serif font-medium leading-tight mb-8 tracking-tight drop-shadow-2xl">
               Discover <br />
-              <span className="text-amber-200">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white font-semibold">
                 Perfect Skin
               </span> <br />
               Solution
             </h1>
-            <p className="text-lg text-slate-300 font-light max-w-sm leading-relaxed">
-              {t('subtitle') || "Advanced AI analysis for personalized dermatological treatments."}
-            </p>
+
+            <div className="relative pl-6 border-l-2 border-amber-500/50">
+              <p className="text-lg text-slate-200 font-light max-w-sm leading-relaxed drop-shadow-md">
+                {t('subtitle') || "Advanced AI analysis for personalized dermatological treatments."}
+              </p>
+            </div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-white/10 pt-8">
-            <div className="flex gap-4">
+          <div className="flex items-center justify-between border-t border-white/10 pt-8 mt-12 backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/5 shadow-inner">
+            <div className="flex gap-8">
               <div className="text-center">
-                <span className="block text-2xl font-serif text-white">15k+</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider">Cases</span>
+                <span className="block text-3xl font-serif text-white drop-shadow-lg">15k+</span>
+                <span className="text-[10px] text-slate-300 uppercase tracking-widest font-semibold mt-1">Cases</span>
               </div>
-              <div className="w-px h-10 bg-white/10" />
+              <div className="w-px h-10 bg-white/20" />
               <div className="text-center">
-                <span className="block text-2xl font-serif text-white">98%</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider">Accuracy</span>
+                <span className="block text-3xl font-serif text-white drop-shadow-lg">98%</span>
+                <span className="text-[10px] text-slate-300 uppercase tracking-widest font-semibold mt-1">Accuracy</span>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Powered by</p>
-              <p className="font-serif italic text-lg text-amber-200/80">CS Derma Logic</p>
+              <p className="text-[10px] text-slate-300 uppercase tracking-widest font-semibold mb-1">Powered by</p>
+              <p className="font-serif italic text-lg text-amber-200/90">CS Derma Logic</p>
             </div>
           </div>
         </div>
