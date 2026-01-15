@@ -425,12 +425,9 @@ export default function Home() {
                       </p>
 
                       <div className="flex items-end justify-between">
-                        <div>
-                          <p className="text-xs text-amber-300/80 uppercase tracking-wider mb-2">Estimated Price</p>
-                          <span className="text-4xl font-serif">{result.main.price}</span>
-                        </div>
+                        {/* Price Removed as per request */}
                         {result.package_info && (
-                          <div className="text-right">
+                          <div className="text-right w-full">
                             <span className="block text-xs text-emerald-400 font-bold uppercase tracking-wider mb-1">Package Offer</span>
                             <span className="text-sm text-white/80">{result.package_info}</span>
                           </div>
@@ -453,7 +450,7 @@ export default function Home() {
                       <div className="flex-1">
                         <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">Synergy Booster</span>
                         <h4 className="text-lg font-medium text-[#0f172a]">{getTreatmentName(result.upsell)}</h4>
-                        <p className="text-sm text-slate-500 mt-1">{result.upsell.price}</p>
+                        {/* Price removed */}
                       </div>
                       <Button variant="outline" size="sm" className="rounded-full border-slate-200 hover:bg-slate-50">
                         View Details
