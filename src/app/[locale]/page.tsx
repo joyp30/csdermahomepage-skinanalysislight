@@ -200,8 +200,8 @@ export default function Home() {
           <div>
             {/* Logo - Resized and Styled */}
             <div className="mb-10 flex flex-col items-start gap-4">
-              <div className="bg-white p-2 rounded-lg">
-                <img src="/seoul_derma_logo.jpg" alt="Seoul Skin Clinic" className="h-12 w-auto object-contain" />
+              <div className="bg-white p-3 rounded-xl shadow-lg">
+                <img src="/logo_simple.jpg" alt="Seoul Skin Clinc Logo" className="h-12 w-auto object-contain" />
               </div>
               <ResearchEthicsModal />
             </div>
@@ -217,7 +217,7 @@ export default function Home() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white font-semibold">
                 Perfect Skin
               </span> <br />
-              Solution
+              Solution.
             </h1>
 
             <div className="relative pl-6 border-l-2 border-amber-500/50">
