@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, Check, Sun, Shield, ChevronRight } from 'lucide-react';
+import { Sparkles, Check, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getLightRecommendation, LightAnswers, RecommendationResult } from '@/lib/logic/light-mode';
 import { useTranslations, useLocale } from 'next-intl';
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label';
 
 <div className="mb-10 flex flex-col items-start gap-4">
   <div className="bg-white p-3 rounded-xl shadow-lg">
