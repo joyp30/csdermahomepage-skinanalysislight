@@ -209,9 +209,6 @@ function ResultsContent() {
 
                                         <div className="mt-auto space-y-4 pt-6 border-t border-[#F5F5F5]">
                                             <div className="flex justify-between items-baseline group-hover:text-[#BFA181] transition-colors duration-300">
-                                                {/* Price hidden as per request */}
-                                                {/* <span className="text-xs font-bold text-[#999] uppercase tracking-widest">{t('price_label')}</span> */}
-                                                {/* <span className="text-xl font-medium text-[#1C1C1C]">{treatment.price}</span> */}
                                             </div>
                                             <div className="flex justify-between items-baseline">
                                                 <span className="text-xs font-bold text-[#999] uppercase tracking-widest">{t('downtime_label')}</span>
