@@ -377,11 +377,6 @@ export default function LightConsultationPage() {
                                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Estimated Cost</p>
                                                     <span className="text-3xl font-black text-indigo-600 tracking-tight">{result.main.price}</span>
                                                 </div>
-                                                {result.package_info && (
-                                                    <span className="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg">
-                                                        {result.package_info}
-                                                    </span>
-                                                )}
                                             </div>
                                         </div>
                                     </motion.div>
