@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 
-export default function ProModePage({ params }: { params: { locale: string } }) {
-    redirect(`/${params.locale}/consult/pro/checkin`);
+export default async function ProModePage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    redirect(`/${locale}/consult/pro/checkin`);
 }

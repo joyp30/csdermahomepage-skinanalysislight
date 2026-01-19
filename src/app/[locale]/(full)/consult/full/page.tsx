@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
-export default function FullModePage({ params }: { params: { locale: string } }) {
+export default async function FullModePage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
     // Redirect to the check-in page within the full mode
-    redirect(`/${params.locale}/consult/full/checkin`);
+    redirect(`/${locale}/consult/full/checkin`);
 }

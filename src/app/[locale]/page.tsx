@@ -9,12 +9,7 @@ import { getLightRecommendation, LightAnswers, RecommendationResult } from '@/li
 import { useTranslations, useLocale } from 'next-intl';
 // import { Label } from '@/components/ui/label';
 
-<div className="mb-10 flex flex-col items-start gap-4">
-  <div className="bg-white p-3 rounded-xl shadow-lg">
-    <img src="/logo_simple.jpg" alt="Seoul Skin Clinc Logo" className="h-12 w-auto object-contain" />
-  </div>
-  {/* <ResearchEthicsModal /> */}
-</div>
+
 
 // ----------------------------------------------------------------------
 // Constants & Types
