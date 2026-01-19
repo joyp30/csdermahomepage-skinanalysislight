@@ -93,7 +93,7 @@ export const SURVEY_QUESTIONS: SurveyQuestion[] = [
     {
         id: 'q_budget_granular',
         category: 'Constraints',
-        title: '1회 시술 희망 예산은?',
+        title: '1회 시술 책정 예산은?',
         type: 'single',
         modes: ['full', 'pro'],
         options: [
@@ -109,7 +109,7 @@ export const SURVEY_QUESTIONS: SurveyQuestion[] = [
     {
         id: 'q_budget',
         category: 'Constraints',
-        title: '1회 시술 희망 예산은?',
+        title: '1회 시술 책정 예산은?',
         type: 'single',
         modes: ['light'],
         options: [

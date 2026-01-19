@@ -91,7 +91,7 @@
             }
         },
         "q_budget": {
-            "title": "1회 시술 희망 예산은?",
+            "title": "1회 시술 책정 예산은?",
             "options": {
                 "economy": "20만원 미만",
                 "standard": "20만원 ~ 40만원",
@@ -208,7 +208,7 @@
             "normal_desc": "유수분 밸런스가 좋음"
         },
         "budget": {
-            "label": "희망 예산",
+            "label": "책정 예산",
             "placeholder": "예산을 선택하세요",
             "economy": "실속형 (20만원 미만)",
             "standard": "표준형 (20~40만원)",
